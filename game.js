@@ -119,23 +119,24 @@
   ];
 
   const weapons = {
-    spear: { name:"РЖАВОЕ КОПЬЁ", damage:6, range:1.9, cooldown:.34, melee:true, tint:[138,125,105] },
-    axe: { name:"ОБЫЧНЫЙ ТОПОР", damage:9, range:1.25, cooldown:.48, melee:true, tint:[149,136,113] },
-    sword: { name:"ДЛИННЫЙ МЕЧ", damage:10, range:1.55, cooldown:.3, melee:true, tint:[172,179,181] },
-    crossbow: { name:"АРБАЛЕТ", damage:28, range:10, cooldown:1.8, reload:1.8, projectileSpeed:9, ammo:"bolt", ammoName:"БОЛТЫ", tint:[121,91,62] },
-    bow: { name:"ЛУК ОХОТНИКА", damage:17, range:9, cooldown:.9, reload:.9, projectileSpeed:7, ammo:"arrow", ammoName:"СТРЕЛЫ", tint:[111,136,72] },
-    blades: { name:"ПАРНЫЕ КЛИНКИ", damage:5, range:1.3, cooldown:.18, melee:true, tint:[157,170,181] },
-    greataxe: { name:"ДВУРУЧНЫЙ ТОПОР", damage:16, range:1.45, cooldown:.72, melee:true, tint:[165,90,67] },
-    berserker: { name:"МЕЧ БЕРСЕРКА", damage:22, range:1.7, cooldown:.9, melee:true, tint:[219,193,127] },
-    revolver: { name:"ПОСЛЕДНИЙ ДОВОД", damage:55, range:12, cooldown:1.1, reload:1.1, projectileSpeed:12, ammo:"bullet", ammoName:"ПАТРОНЫ", tint:[190,160,93] }
+    spear: { name:"РЖАВОЕ КОПЬЁ", damage:32, range:1.9, cooldown:.34, melee:true, tint:[138,125,105] },
+    axe: { name:"ОБЫЧНЫЙ ТОПОР", damage:46, range:1.25, cooldown:.48, melee:true, tint:[149,136,113] },
+    sword: { name:"ДЛИННЫЙ МЕЧ", damage:50, range:1.55, cooldown:.3, melee:true, tint:[172,179,181] },
+    crossbow: { name:"АРБАЛЕТ", damage:130, range:10, cooldown:1.8, reload:1.8, projectileSpeed:9, ammo:"bolt", ammoName:"БОЛТЫ", tint:[121,91,62] },
+    bow: { name:"ЛУК ОХОТНИКА", damage:85, range:9, cooldown:.9, reload:.9, projectileSpeed:7, ammo:"arrow", ammoName:"СТРЕЛЫ", tint:[111,136,72] },
+    blades: { name:"ПАРНЫЕ КЛИНКИ", damage:26, range:1.3, cooldown:.18, melee:true, tint:[157,170,181] },
+    greataxe: { name:"ДВУРУЧНЫЙ ТОПОР", damage:80, range:1.45, cooldown:.72, melee:true, tint:[165,90,67] },
+    berserker: { name:"МЕЧ БЕРСЕРКА", damage:110, range:1.7, cooldown:.9, melee:true, tint:[219,193,127] },
+    revolver: { name:"ПОСЛЕДНИЙ ДОВОД", damage:260, range:12, cooldown:1.1, reload:1.1, projectileSpeed:12, ammo:"bullet", ammoName:"ПАТРОНЫ", tint:[190,160,93] }
   };
 
   const difficultyPresets={
-    easy:{name:"ЛЁГКАЯ",enemyHp:.7,bossHp:.7,enemyDamage:.7},
+    easy:{name:"ЛЁГКАЯ",enemyHp:.8,bossHp:.8,enemyDamage:.7},
     normal:{name:"НОРМАЛЬНАЯ",enemyHp:1,bossHp:1,enemyDamage:1},
-    hard:{name:"ТЯЖЁЛАЯ",enemyHp:1.6,bossHp:1.75,enemyDamage:1.35},
-    nightmare:{name:"КОШМАР",enemyHp:2.5,bossHp:3,enemyDamage:1.8}
+    hard:{name:"ТЯЖЁЛАЯ",enemyHp:1.8,bossHp:2,enemyDamage:1.35},
+    nightmare:{name:"КОШМАР",enemyHp:3.5,bossHp:4,enemyDamage:1.8}
   };
+  const SAVE_VERSION=4;
   let selectedDifficulty="normal";
 
   const weaponOrder=["spear","axe","sword","crossbow","bow","blades","greataxe","berserker","revolver"];
@@ -299,6 +300,20 @@
     return grid;
   }
 
+  function applyZoneLayout(grid, chapter, zone) {
+    const size=grid.length, variant=zone%5;
+    const carve=(x1,y1,x2,y2)=>{for(let y=Math.max(1,y1);y<=Math.min(size-2,y2);y++)for(let x=Math.max(1,x1);x<=Math.min(size-2,x2);x++)grid[y][x]=0;};
+    if(variant===0){carve(2,8,18,12);carve(8,2,12,18);}
+    else if(variant===1){carve(3,3,8,8);carve(12,12,17,17);carve(7,7,13,13);}
+    else if(variant===2){carve(4,4,16,6);carve(4,14,16,16);carve(9,5,11,15);}
+    else if(variant===3){carve(3,7,8,13);carve(12,7,17,13);carve(7,9,13,11);}
+    else {carve(5,5,15,15);for(let i=5;i<=15;i++){if(i>7&&i<13)continue;grid[5][i]=1;grid[15][i]=1;grid[i][5]=1;grid[i][15]=1;}carve(9,1,11,19);}
+    if(chapter===1){ // In the forest every remaining wall is rendered as a dense mass of trunks, never masonry.
+      for(let y=2;y<size-2;y++)for(let x=2;x<size-2;x++)if(grid[y][x]===1&&(x+y+zone)%7===0)grid[y][x]=0;
+    }
+    return grid;
+  }
+
   function getReachableCells(grid) {
     const queue = [[1, 1, 0]];
     const seen = new Set(["1,1"]);
@@ -360,7 +375,7 @@
     zoneIndex=Math.max(0,index|0);
     const c=chapters[chapterIndex];
     const old=player;
-    map = generateMaze(c.seed + zoneIndex*137,chapterIndex);
+    map = applyZoneLayout(generateMaze(c.seed + zoneIndex*137,chapterIndex),chapterIndex,zoneIndex);
     if(chapterIndex===0&&zoneIndex===7)for(let y=1;y<map.length-1;y++)for(let x=1;x<map[y].length-1;x++)map[y][x]=0;
     cells = getReachableCells(map);
     const random = rngFactory(c.seed + zoneIndex*211 + 99);
@@ -381,9 +396,10 @@
     const candidates = cells.filter((cell) => cell.d > 8 && cell.d < far.d - 3);
     const isFinal=zoneIndex===c.zones.length-1;
     const isMini=zoneIndex===c.miniBossAt;
-    const enemyCount=Math.min(18,8+chapterIndex*2+Math.floor(zoneIndex/2));
+    const enemyCount=Math.min(30,14+chapterIndex*3+Math.floor(zoneIndex/2));
+    const spawnPool=candidates.length?candidates:cells.filter(cell=>cell.d>2);
     for (let i = 0; i < enemyCount; i++) {
-      const spot = candidates[Math.floor(random() * candidates.length)] || cells[10 + i];
+      const spot = spawnPool[Math.floor(random() * spawnPool.length)] || cells[(3+i)%Math.max(1,cells.length)] || {x:2.5,y:2.5};
       entities.push(makeEnemy(spot.x + (random()-.5)*.25, spot.y + (random()-.5)*.25, false,false,i%c.enemyTypes.length));
     }
     boss=null;miniBoss=null;zoneExit=null;
@@ -400,7 +416,7 @@
       if (spot) entities.push({ type: "ghost", x: spot.x, y: spot.y, alpha: .2 + random()*.2 });
     }
     const decorKinds=zoneDecorSets[chapterIndex]?.[zoneIndex]||["rubble","column","candelabra"];
-    const decorCount=chapterIndex===1?18:8;
+    const decorCount=chapterIndex===1?42:22;
     for(let i=0;i<decorCount;i++){
       const spot=candidates[Math.floor(random()*candidates.length)];
       if(spot)entities.push({type:"decor",kind:decorKinds[i%decorKinds.length],x:spot.x+(random()-.5)*.22,y:spot.y+(random()-.5)*.22,picked:false,sway:random()*8});
@@ -462,8 +478,8 @@
     const c = chapters[chapterIndex];
     const difficulty=difficultyPresets[campaign.difficulty]||difficultyPresets.normal;
     const archetype=c.enemyTypes[variant%c.enemyTypes.length];
-    const baseHp=260+chapterIndex*75+Math.max(0,zoneIndex)*18;
-    const maxHp = isBoss ? Math.round(c.bossHp*(isMini?3.2:6.5)*difficulty.bossHp) : Math.round(baseHp*archetype.hp*difficulty.enemyHp);
+    const baseHp=1200+chapterIndex*350+Math.max(0,zoneIndex)*75;
+    const maxHp = isBoss ? Math.round(c.bossHp*(isMini?12:24)*difficulty.bossHp) : Math.round(baseHp*archetype.hp*difficulty.enemyHp);
     return {
       type: "enemy", x, y, boss: isBoss, mini:isMini, variant,isBoss,shape:isBoss?(chapterIndex===5?"angel":"boss"):archetype.shape,name:isBoss?(isMini?c.miniBoss:c.boss):archetype.name, hp: maxHp, maxHp,
       speed: isBoss ? .52 + chapterIndex*.025 : (.62 + chapterIndex*.025)*archetype.speed,
@@ -503,7 +519,7 @@
     try{
       const runtime=captureRuntime();
       if(!runtime)return;
-      const payload={version:2,chapter:chapterIndex,zone:inHub?0:zoneIndex,hub:inHub,campaign,stats,started:gameStartedAt,savedAt:Date.now(),runtime};
+      const payload={version:SAVE_VERSION,chapter:chapterIndex,zone:inHub?0:zoneIndex,hub:inHub,campaign,stats,started:gameStartedAt,savedAt:Date.now(),runtime};
       localStorage.setItem("asterion-save",JSON.stringify(payload));
       $("#continue-game").classList.remove("hidden");
     }catch(error){console.warn("Asterion save failed",error);}
@@ -529,6 +545,20 @@
     miniBoss=entities.find(e=>e.type==="enemy"&&e.boss&&e.mini)||null;
     mode="playing";hideScreens();hud.classList.remove("hidden");updateWeaponHUD();updateObjective();ui.bossUI.classList.add("hidden");lastTime=performance.now();lastAutosaveAt=performance.now();
     showMessage("Прогресс восстановлен.",1800);
+  }
+
+  function migrateLegacyRuntime(runtime){
+    if(!runtime?.player||!player)return;
+    const old=runtime.player;
+    player.a=Number.isFinite(old.a)?old.a:player.a;
+    player.hp=Math.max(1,old.hp||100);
+    player.herbs=Math.max(0,old.herbs??campaign.herbs??1);
+    player.evidence=old.evidence||0;
+    if(Number.isFinite(old.x)&&Number.isFinite(old.y)&&canStand(old.x,old.y)){player.x=old.x;player.y=old.y;}
+    campaign.herbs=player.herbs;
+    updateWeaponHUD();updateObjective();
+    showMessage("Локация обновлена: новые враги, окружение и баланс применены.",3600);
+    saveGame();
   }
 
   function showMessage(text, duration = 2200) {
@@ -952,7 +982,18 @@
     if (!player || mode === "title" || mode === "story") {
       ctx.fillStyle = "#070706"; ctx.fillRect(0,0,w,h); return;
     }
-    const c = chapters[chapterIndex];
+    const baseChapter = chapters[chapterIndex];
+    const moodTints=[[134,60,72],[54,121,63],[43,137,148],[127,119,135],[153,51,55],[219,183,91]];
+    const zoneTints=[[195,74,62],[58,139,122],[178,126,61],[101,76,164],[151,166,83]];
+    const zoneVariant=Math.max(0,zoneIndex)%5,pulse=.1+zoneVariant*.035;
+    const mood=blend(moodTints[chapterIndex]||baseChapter.light,zoneTints[zoneVariant],.42);
+    const c=inHub?baseChapter:{...baseChapter,
+      sky:blend(baseChapter.sky,mood,.12+pulse),
+      floor:blend(baseChapter.floor,mood,.08+pulse*.7),
+      floorAlt:blend(baseChapter.floorAlt,mood,.14+pulse),
+      fog:blend(baseChapter.fog,mood,.1+pulse*.6),
+      light:blend(baseChapter.light,mood,.1+pulse)
+    };
     const horizon = h/2 + Math.sin(player.bob)*1.8;
     let grad = ctx.createLinearGradient(0,0,0,horizon);
     grad.addColorStop(0,color(c.sky,.5));
@@ -986,6 +1027,7 @@
       }
     }
     drawEnvironmentDetails(c,w,h,horizon,vanishX,now);
+    drawZoneSignature(c,w,h,horizon,now);
 
     const fov = Math.PI/3;
     const maxDepth = chapterIndex === 4 ? 9 : 12;
@@ -1029,12 +1071,12 @@
 
   function renderMinimap(c){
     if(!player||!map.length)return;const mw=minimapCanvas.width,mh=minimapCanvas.height,rows=map.length,cols=map[0].length,scale=Math.min(mw/cols,mh/rows),ox=(mw-cols*scale)/2,oy=(mh-rows*scale)/2;
-    minimapCtx.clearRect(0,0,mw,mh);minimapCtx.fillStyle="rgba(4,5,5,.92)";minimapCtx.fillRect(0,0,mw,mh);
-    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){minimapCtx.fillStyle=map[y][x]?(chapterIndex===1?"#243b28":"#4b4743"):"#171817";minimapCtx.fillRect(ox+x*scale,oy+y*scale,Math.ceil(scale),Math.ceil(scale));}
+    minimapCtx.clearRect(0,0,mw,mh);minimapCtx.fillStyle="#020607";minimapCtx.fillRect(0,0,mw,mh);
+    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){minimapCtx.fillStyle=map[y][x]?(chapterIndex===1?"#173523":"#151c20"):(chapterIndex===1?"#6f9f55":"#76939a");minimapCtx.fillRect(ox+x*scale,oy+y*scale,Math.ceil(scale),Math.ceil(scale));}
     const loot=[...notes,...entities,...(zoneExit?[zoneExit]:[]),...(relic?[relic]:[])];
     for(const item of loot){if(item.picked||item.alive===false)continue;let col=null,size=2.2;if(item.type==="enemy"){col=item.boss?"#ff4255":"#c52d3b";size=item.boss?3.7:2.3;}else if(item.type==="herb")col="#74b75a";else if(["weapon","ammo","silver","note","relic"].includes(item.type)){col=item.type==="relic"?"#fff09a":"#d8ae59";size=item.type==="relic"?3.6:2.2;}else if(item.type==="exit")col="#67b8d6";else if(item.type==="merchant")col="#b88cff";if(!col)continue;minimapCtx.fillStyle=col;minimapCtx.beginPath();minimapCtx.arc(ox+item.x*scale,oy+item.y*scale,size,0,Math.PI*2);minimapCtx.fill();}
     const px=ox+player.x*scale,py=oy+player.y*scale;minimapCtx.save();minimapCtx.translate(px,py);minimapCtx.rotate(player.a);minimapCtx.fillStyle="#f1eadb";minimapCtx.beginPath();minimapCtx.moveTo(5,0);minimapCtx.lineTo(-4,-3.2);minimapCtx.lineTo(-4,3.2);minimapCtx.closePath();minimapCtx.fill();minimapCtx.restore();
-    minimapCtx.strokeStyle="rgba(225,215,190,.32)";minimapCtx.strokeRect(.5,.5,mw-1,mh-1);
+    minimapCtx.strokeStyle="rgba(232,220,183,.78)";minimapCtx.lineWidth=2;minimapCtx.strokeRect(1,1,mw-2,mh-2);
   }
 
   function drawEnvironmentDetails(c,w,h,horizon,vanishX,now){
@@ -1069,6 +1111,23 @@
     }else if(chapterIndex===5){
       const sunX=w*.74,sunY=h*.13;const sun=ctx.createRadialGradient(sunX,sunY,0,sunX,sunY,h*.24);sun.addColorStop(0,"rgba(255,242,181,.95)");sun.addColorStop(.2,"rgba(255,220,117,.5)");sun.addColorStop(1,"rgba(255,220,130,0)");ctx.fillStyle=sun;ctx.fillRect(w*.44,0,w*.56,h*.48);
       ctx.fillStyle="rgba(242,239,225,.48)";for(let i=0;i<10;i++){const x=(i*117+now*.003)%w,y=45+(i%4)*34;ctx.beginPath();ctx.ellipse(x,y,58+(i%3)*19,13+(i%2)*7,0,0,Math.PI*2);ctx.fill();}
+    }
+  }
+
+  function drawZoneSignature(c,w,h,horizon,now){
+    if(inHub)return;
+    const variant=zoneIndex%5;
+    if(variant===0){
+      ctx.strokeStyle=rgba(c.light,.22);ctx.lineWidth=2;
+      for(let i=0;i<7;i++){const x=(i+.5)*w/7,swing=Math.sin(now*.0015+i)*8;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+swing,horizon*(.18+(i%3)*.12));ctx.stroke();}
+    }else if(variant===1){
+      const mist=ctx.createLinearGradient(0,horizon*.55,0,h);mist.addColorStop(0,rgba(c.fog,0));mist.addColorStop(.45,rgba(c.fog,.18));mist.addColorStop(1,rgba(c.fog,.03));ctx.fillStyle=mist;ctx.fillRect(0,horizon*.5,w,h-horizon*.5);
+    }else if(variant===2){
+      ctx.fillStyle=rgba(c.wallAlt,.28);for(let i=0;i<6;i++){const x=i%2?i*w/5:w-i*w/5,ww=12+(i%3)*8;ctx.fillRect(x-ww/2,horizon*.15,ww,horizon*.85);}
+    }else if(variant===3){
+      ctx.fillStyle=rgba(c.light,.34);for(let i=0;i<34;i++){const x=(i*97+now*.009*(1+i%3))%w,y=(i*53+now*.014*(1+i%2))%horizon;ctx.fillRect(x,y,1+(i%3===0),1+(i%4===0));}
+    }else{
+      ctx.strokeStyle=rgba(c.light,.24);ctx.lineWidth=8;ctx.beginPath();ctx.arc(w*.5,horizon*.8,w*.19,Math.PI,0);ctx.stroke();ctx.fillStyle=rgba(c.fog,.08);ctx.fillRect(w*.31,horizon*.78,w*.38,horizon*.22);
     }
   }
 
@@ -1177,7 +1236,7 @@
     if (!ghost && e.hitAt && now-e.hitAt<900 && !e.boss) {
       ctx.fillStyle="rgba(0,0,0,.65)";ctx.fillRect(sx-width/2,y-5,width,2);
       ctx.fillStyle=c.accent;ctx.fillRect(sx-width/2,y-5,width*Math.max(0,e.hp/e.maxHp),2);
-      ctx.fillStyle="#d8d1c3";ctx.font=`${Math.max(6,width*.085)}px Arial`;ctx.textAlign="center";ctx.fillText(e.name||"СУЩЕСТВО",sx,y-9);
+      ctx.fillStyle="#d8d1c3";ctx.font=`${Math.max(6,width*.085)}px Arial`;ctx.textAlign="center";ctx.fillText(`${e.name||"СУЩЕСТВО"} · ${Math.ceil(e.hp)}/${e.maxHp} HP`,sx,y-9);
     }
   }
 
@@ -1504,7 +1563,7 @@
     initAudio();clearSave();stats={kills:0,notes:0,deaths:0};campaign={weapons:["spear"],ammo:{bolt:5,arrow:0,bullet:0},relics:[],journal:[],silver:0,currentWeapon:"spear",herbs:1,difficulty:selectedDifficulty};pendingZone=0;gameStartedAt=Date.now();showStory(-1);
   });
   $("#continue-game").addEventListener("click",()=>{
-    initAudio();const save=loadSave();if(save){stats=save.stats||stats;campaign=save.campaign||campaign;selectedDifficulty=campaign.difficulty||"normal";updateDifficultyButton();pendingZone=save.zone||0;gameStartedAt=save.started||Date.now();if(save.hub)startHub(save.chapter||0);else startChapter(save.chapter||0,save.zone||0);restoreRuntime(save.runtime);}
+    initAudio();const save=loadSave();if(save){stats=save.stats||stats;campaign=save.campaign||campaign;selectedDifficulty=campaign.difficulty||"normal";updateDifficultyButton();pendingZone=save.zone||0;gameStartedAt=save.started||Date.now();if(save.hub)startHub(save.chapter||0);else startChapter(save.chapter||0,save.zone||0);if((save.version||0)>=SAVE_VERSION){restoreRuntime(save.runtime);saveGame();}else migrateLegacyRuntime(save.runtime);}
   });
   $("#difficulty-button").addEventListener("click",()=>{const order=["easy","normal","hard","nightmare"],index=order.indexOf(selectedDifficulty);selectedDifficulty=order[(index+1)%order.length];updateDifficultyButton();});
   $("#story-continue").addEventListener("click",()=>startChapter(pendingChapter,pendingZone));
