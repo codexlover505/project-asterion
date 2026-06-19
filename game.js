@@ -119,15 +119,15 @@
   ];
 
   const weapons = {
-    spear: { name:"РЖАВОЕ КОПЬЁ", damage:32, range:1.9, cooldown:.34, melee:true, tint:[138,125,105] },
-    axe: { name:"ОБЫЧНЫЙ ТОПОР", damage:46, range:1.25, cooldown:.48, melee:true, tint:[149,136,113] },
-    sword: { name:"ДЛИННЫЙ МЕЧ", damage:50, range:1.55, cooldown:.3, melee:true, tint:[172,179,181] },
-    crossbow: { name:"АРБАЛЕТ", damage:130, range:10, cooldown:1.8, reload:1.8, projectileSpeed:9, ammo:"bolt", ammoName:"БОЛТЫ", tint:[121,91,62] },
-    bow: { name:"ЛУК ОХОТНИКА", damage:85, range:9, cooldown:.9, reload:.9, projectileSpeed:7, ammo:"arrow", ammoName:"СТРЕЛЫ", tint:[111,136,72] },
-    blades: { name:"ПАРНЫЕ КЛИНКИ", damage:26, range:1.3, cooldown:.18, melee:true, tint:[157,170,181] },
-    greataxe: { name:"ДВУРУЧНЫЙ ТОПОР", damage:80, range:1.45, cooldown:.72, melee:true, tint:[165,90,67] },
-    berserker: { name:"МЕЧ БЕРСЕРКА", damage:110, range:1.7, cooldown:.9, melee:true, tint:[219,193,127] },
-    revolver: { name:"ПОСЛЕДНИЙ ДОВОД", damage:260, range:12, cooldown:1.1, reload:1.1, projectileSpeed:12, ammo:"bullet", ammoName:"ПАТРОНЫ", tint:[190,160,93] }
+    spear: { name:"РЖАВОЕ КОПЬЁ", damage:60, range:1.9, cooldown:.34, melee:true, tint:[138,125,105] },
+    axe: { name:"ОБЫЧНЫЙ ТОПОР", damage:90, range:1.25, cooldown:.48, melee:true, tint:[149,136,113] },
+    sword: { name:"ДЛИННЫЙ МЕЧ", damage:100, range:1.55, cooldown:.3, melee:true, tint:[172,179,181] },
+    crossbow: { name:"АРБАЛЕТ", damage:250, range:10, cooldown:1.8, reload:1.8, projectileSpeed:9, ammo:"bolt", ammoName:"БОЛТЫ", tint:[121,91,62] },
+    bow: { name:"ЛУК ОХОТНИКА", damage:170, range:9, cooldown:.9, reload:.9, projectileSpeed:7, ammo:"arrow", ammoName:"СТРЕЛЫ", tint:[111,136,72] },
+    blades: { name:"ПАРНЫЕ КЛИНКИ", damage:50, range:1.3, cooldown:.18, melee:true, tint:[157,170,181] },
+    greataxe: { name:"ДВУРУЧНЫЙ ТОПОР", damage:160, range:1.45, cooldown:.72, melee:true, tint:[165,90,67] },
+    berserker: { name:"МЕЧ БЕРСЕРКА", damage:220, range:1.7, cooldown:.9, melee:true, tint:[219,193,127] },
+    revolver: { name:"ПОСЛЕДНИЙ ДОВОД", damage:500, range:12, cooldown:1.1, reload:1.1, projectileSpeed:12, ammo:"bullet", ammoName:"ПАТРОНЫ", tint:[190,160,93] }
   };
 
   const difficultyPresets={
