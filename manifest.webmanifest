@@ -1,0 +1,12 @@
+{
+  "name": "ASTERION — Survival Horror",
+  "short_name": "ASTERION",
+  "description": "Браузерная survival-horror игра в мире тёмного фэнтези.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#050504",
+  "theme_color": "#080807",
+  "lang": "ru"
+}

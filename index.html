@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080807" />
+  <meta name="description" content="ASTERION — браузерная survival-horror игра в мире тёмного фэнтези." />
+  <meta property="og:title" content="ASTERION" />
+  <meta property="og:description" content="Пройдите через туман Астериона и найдите пропавшего отца." />
+  <meta property="og:type" content="website" />
+  <title>ASTERION — survival horror</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="game" width="800" height="450" aria-label="Игра Asterion"></canvas>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+    <div class="scanlines"></div>
+
+    <section id="hud" class="hidden" aria-live="polite">
+      <div class="hud-top">
+        <div class="chapter-block">
+          <span id="chapter-kicker">ГЛАВА I</span>
+          <strong id="chapter-name">ЗАМОК ЧЁРНОЙ РОЗЫ</strong>
+        </div>
+        <div class="objective-block">
+          <span>ЦЕЛЬ</span>
+          <strong id="objective">Найдите следы отца</strong>
+        </div>
+      </div>
+      <div id="message" class="message"></div>
+      <div id="boss-ui" class="boss-ui hidden">
+        <strong id="boss-name"></strong>
+        <div class="boss-track"><i id="boss-fill"></i></div>
+      </div>
+      <div class="hud-bottom">
+        <div class="meter health"><span>ЖИЗНЬ</span><i><b id="health-fill"></b></i><em id="health-number">100</em></div>
+        <div class="weapon-block">
+          <span id="weapon-name">РЖАВОЕ КОПЬЁ</span>
+          <strong id="ammo">ТРАВЫ 1</strong>
+        </div>
+        <div class="meter stamina"><span>СИЛЫ</span><i><b id="stamina-fill"></b></i></div>
+      </div>
+      <div id="crosshair" class="crosshair"><i></i><b></b><em></em><span></span></div>
+      <div id="damage-flash"></div>
+    </section>
+
+    <section id="title-screen" class="screen active">
+      <div class="sigil" aria-hidden="true"><i></i><b></b><em></em></div>
+      <p class="eyebrow">PROJECT</p>
+      <h1>ASTERION</h1>
+      <p class="tagline">Не верь той, что на небесах.</p>
+      <nav class="menu">
+        <button id="new-game" class="primary">НОВАЯ ИГРА</button>
+        <button id="continue-game" class="hidden">ПРОДОЛЖИТЬ</button>
+        <button id="controls-button">УПРАВЛЕНИЕ</button>
+      </nav>
+      <p class="footer-note">SURVIVAL HORROR · АВТОСОХРАНЕНИЕ · DARK FANTASY</p>
+    </section>
+
+    <section id="story-screen" class="screen story-screen">
+      <p id="story-kicker" class="eyebrow"></p>
+      <h2 id="story-title"></h2>
+      <div id="story-body" class="story-body"></div>
+      <button id="story-continue" class="primary">ВОЙТИ В ТУМАН</button>
+    </section>
+
+    <section id="controls-screen" class="screen">
+      <p class="eyebrow">ПАМЯТКА ПУТНИКА</p>
+      <h2>УПРАВЛЕНИЕ</h2>
+      <div class="controls-grid">
+        <span><kbd>W A S D</kbd> движение</span>
+        <span><kbd>МЫШЬ / ← →</kbd> обзор</span>
+        <span><kbd>ЛКМ / ПРОБЕЛ</kbd> атака</span>
+        <span><kbd>SHIFT</kbd> бег</span>
+        <span><kbd>E</kbd> взаимодействие</span>
+        <span><kbd>H</kbd> лечебная трава</span>
+        <span><kbd>1–9 / КОЛЕСО</kbd> смена оружия</span>
+        <span><kbd>TAB</kbd> журнал</span>
+        <span><kbd>ESC</kbd> пауза</span>
+      </div>
+      <p class="hint">Нажмите на игровое поле, чтобы захватить мышь. Можно играть и только клавиатурой.</p>
+      <button id="controls-back" class="primary">НАЗАД</button>
+    </section>
+
+    <section id="pause-screen" class="screen compact">
+      <p class="eyebrow">ТУМАН ЖДЁТ</p>
+      <h2>ПАУЗА</h2>
+      <button id="resume-game" class="primary">ПРОДОЛЖИТЬ</button>
+      <button id="restart-chapter">НАЧАТЬ ГЛАВУ ЗАНОВО</button>
+      <button id="return-title">В ГЛАВНОЕ МЕНЮ</button>
+    </section>
+
+    <section id="journal-screen" class="screen journal-screen">
+      <p class="eyebrow">ЖУРНАЛ АРДЕНА</p>
+      <h2 id="journal-title"></h2>
+      <div id="journal-content"></div>
+      <button id="journal-close" class="primary">ЗАКРЫТЬ</button>
+    </section>
+
+    <section id="death-screen" class="screen compact">
+      <p class="eyebrow">АСТЕРИОН НЕ ОТПУСКАЕТ</p>
+      <h2>ВЫ ПОГИБЛИ</h2>
+      <p>Туман сомкнулся, но путь ещё можно повторить.</p>
+      <button id="retry" class="primary">ПОВТОРИТЬ ГЛАВУ</button>
+      <button id="death-title">В ГЛАВНОЕ МЕНЮ</button>
+    </section>
+
+    <section id="ending-screen" class="screen ending-screen">
+      <p class="eyebrow">КОНЕЦ ПУТИ</p>
+      <h2>ИСТОРИЯ ЗАКОНЧЕНА</h2>
+      <div class="ending-copy">
+        <p>Небесный Город рушится. Сердце погибает. Лорды исчезают.</p>
+        <p>Арден покидает Астерион один.</p>
+        <p class="final-line">На вершине горы остаётся реликтовый револьвер. Пустой.</p>
+      </div>
+      <div id="ending-stats"></div>
+      <button id="ending-title" class="primary">ГЛАВНОЕ МЕНЮ</button>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
