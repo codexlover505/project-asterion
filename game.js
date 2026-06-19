@@ -3,6 +3,8 @@
 
   const canvas = document.querySelector("#game");
   const ctx = canvas.getContext("2d", { alpha: false });
+  const minimapCanvas=document.querySelector("#minimap");
+  const minimapCtx=minimapCanvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
 
   const $ = (selector) => document.querySelector(selector);
@@ -39,7 +41,7 @@
       boss: "ЧЕРНОБОР", phases: ["ХОЗЯИН ЧАЩИ", "ЗВЕРЬ ИЗ КОРНЕЙ", "СЕРДЦЕ ЛЕСА"],
       enemy: "Лесной одичалый", relic: "Рог Чернобора", weapon: "ЛУК ОХОТНИКА",
       enemyTypes: [{name:"Заражённый волк",hp:.75,speed:1.5,damage:.8,shape:"wolf"},{name:"Корневое существо",hp:1.45,speed:.72,damage:1.3,shape:"root"},{name:"Заражённый охотник",hp:1.25,speed:.9,damage:1.2,shape:"hunter"}],
-      zones: ["ЛЕСНАЯ ТРОПА","БОЛОТО","ПОЛЯНА ТОТЕМОВ","СЕРДЦЕ ЛЕСА","ДРЕВНИЙ ДУБ"],
+      zones: ["ЛЕСНАЯ ТРОПА","БОЛОТО","ПОЛЯНА ТОТЕМОВ","СЕРДЦЕ ЛЕСА","ПЕЩЕРА КОРНЕЙ","ДРЕВНИЙ ДУБ","АРЕНА ЧЕРНОБОРА"],
       miniBossAt: -1, miniBoss: null, unlocks: {1:"bow"},
       wall: [54, 79, 50], wallAlt: [79, 57, 42], sky: [33, 51, 55], floor: [38, 54, 34], floorAlt: [60, 70, 38], fog: [63, 86, 70], light: [153, 162, 75], enemyColor: [100, 122, 66], accent: "#799861",
       seed: 2273, enemyCount: 9, bossHp: 480, damage: 32, range: 4.4,
@@ -55,8 +57,8 @@
       boss: "АББАТ МОРКАН", phases: ["ПОСЛЕДНИЙ АББАТ", "УТОПЛЕННЫЙ ПРОРОК", "ПАСТЬ БЕЗДНЫ"],
       enemy: "Утопленник", relic: "Крест Моркана", weapon: "ДЛИННЫЙ МЕЧ",
       enemyTypes: [{name:"Рыбочеловек",hp:1.1,speed:1,damage:1,shape:"fishman"},{name:"Болотный ползун",hp:.7,speed:1.25,damage:.85,shape:"leech"},{name:"Амфибия",hp:1.35,speed:.9,damage:1.25,shape:"amphibian"}],
-      zones: ["ЗАТОПЛЕННАЯ ДЕРЕВНЯ","ПРИЧАЛ МЕЛУЗИНЫ","ШЛЮЗ №1","ШЛЮЗ №2","ВНУТРЕННИЙ ДВОР АББАТСТВА","ГЛАВНАЯ ПЛОЩАДЬ"],
-      miniBossAt: 3, miniBoss: "МЕЛУЗИНА", unlocks: {},
+      zones: ["ЗАТОПЛЕННАЯ ДЕРЕВНЯ","ПРИЧАЛ МЕЛУЗИНЫ","ШЛЮЗ №1","ШЛЮЗ №2","ВНУТРЕННИЙ ДВОР АББАТСТВА","СОБОР АББАТСТВА","КОЛОКОЛЬНЯ","ГЛАВНАЯ ПЛОЩАДЬ","АРЕНА МОРКАНА"],
+      miniBossAt: 1, miniBoss: "МЕЛУЗИНА", unlocks: {},
       wall: [67, 85, 96], wallAlt: [82, 65, 72], sky: [39, 60, 76], floor: [31, 60, 70], floorAlt: [46, 77, 80], fog: [71, 99, 112], light: [111, 174, 191], enemyColor: [61, 111, 127], accent: "#70a8b8",
       seed: 3413, enemyCount: 10, bossHp: 580, damage: 38, range: 1.55,
       intro: ["Серая вода скрывает улицы и пороги домов.", "Дна не видно даже там, где вода доходит лишь до колен.", "Женское пение раздаётся прямо за спиной."],
@@ -71,8 +73,8 @@
       boss: "ГОРН", phases: ["КАМЕННЫЙ КОРОЛЬ", "ЖИВАЯ СТАТУЯ", "ГОРОД ВО ПЛОТИ"],
       enemy: "Каменный житель", relic: "Молот Горна", weapon: "ПАРНЫЕ КЛИНКИ",
       enemyTypes: [{name:"Ожившая статуя",hp:1.45,speed:.65,damage:1.2,shape:"statue"},{name:"Каменный солдат",hp:1.7,speed:.58,damage:1.45,shape:"stoneSoldier"}],
-      zones: ["ГЛАВНЫЕ ВОРОТА","ТЕАТР","ПЛОЩАДЬ СТАТУЙ","СОБОР КАМНЯ","ТРОННЫЙ ЗАЛ ГОРНА"],
-      miniBossAt: -1, miniBoss: null, unlocks: {1:"blades"},
+      zones: ["ГЛАВНЫЕ ВОРОТА","УЛИЦА ПИЛИГРИМОВ","ТЕАТР","ПЛОЩАДЬ СТАТУЙ","РЫНОК","СОБОР КАМНЯ","МАСТЕРСКАЯ СКУЛЬПТОРОВ","КВАРТАЛ АРИСТОКРАТОВ","ПОДЗЕМНЫЙ СКЛЕП","ТРОННЫЙ ЗАЛ ГОРНА","АРЕНА ГОРНА"],
+      miniBossAt: -1, miniBoss: null, unlocks: {3:"blades"},
       wall: [110, 106, 97], wallAlt: [82, 94, 111], sky: [62, 67, 80], floor: [57, 55, 51], floorAlt: [76, 70, 60], fog: [94, 96, 99], light: [188, 164, 112], enemyColor: [95, 108, 126], accent: "#aaa48f",
       seed: 4517, enemyCount: 11, bossHp: 700, damage: 42, range: 1.35,
       intro: ["В городе нет ветра, воды, птиц или насекомых.", "На каждом углу стоят статуи с человеческими лицами.", "Когда Арден отворачивается, их позы меняются."],
@@ -87,8 +89,8 @@
       boss: "ВАРЕК", phases: ["ХОЗЯИН ШАХТЫ", "БАГРОВЫЙ ИСПОЛИН", "СЕРДЦЕ ГЛУБИНЫ"],
       enemy: "Одержимый шахтёр", relic: "Кирка Варека", weapon: "ДВУРУЧНЫЙ ТОПОР",
       enemyTypes: [{name:"Слепой шахтёр",hp:1.15,speed:.92,damage:1.1,shape:"miner"},{name:"Кристаллический мутант",hp:1.8,speed:.62,damage:1.55,shape:"crystal"}],
-      zones: ["ГРУЗОВОЙ ЛИФТ","ВЕРХНЯЯ ШАХТА","ЛАГЕРЬ ШАХТЁРОВ","КРИСТАЛЬНАЯ ПЕЩЕРА","ТУННЕЛЬ БУРИЛЬЩИКА","СЕРДЦЕ ШАХТЫ","АРЕНА ВАРЕКА"],
-      miniBossAt: 4, miniBoss: "СТАРШИЙ БУРИЛЬЩИК", unlocks: {3:"greataxe"},
+      zones: ["ГОРНЫЙ ПЕРЕВАЛ","ГРУЗОВОЙ ЛИФТ","ВЕРХНЯЯ ШАХТА","ЛАГЕРЬ ШАХТЁРОВ","КРИСТАЛЬНАЯ ПЕЩЕРА","ШАХТНЫЙ КОНВЕЙЕР","ТУННЕЛЬ БУРИЛЬЩИКА","МАШИННЫЙ ЗАЛ","СЕРДЦЕ ШАХТЫ","ТРОН ВАРЕКА","АРЕНА ВАРЕКА"],
+      miniBossAt: 7, miniBoss: "СТАРШИЙ БУРИЛЬЩИК", unlocks: {4:"greataxe"},
       wall: [98, 57, 47], wallAlt: [120, 43, 57], sky: [38, 22, 32], floor: [53, 31, 25], floorAlt: [80, 37, 29], fog: [79, 45, 49], light: [225, 84, 53], enemyColor: [151, 62, 43], accent: "#ce5348",
       seed: 5689, enemyCount: 12, bossHp: 850, damage: 52, range: 1.55,
       intro: ["Клеть опускается туда, где заканчивается камень.", "Багровая руда пульсирует в стенах, как живая плоть.", "Из тоннеля голос отца зовёт Ардена по имени."],
@@ -103,8 +105,8 @@
       boss: "ИМПЕРАТРИЦА МОРВА", phases: ["СВЯТАЯ ИМПЕРАТРИЦА", "ПАДШИЙ АРХАНГЕЛ", "АВАТАР СЕРДЦА"],
       enemy: "Ложный ангел", relic: "Последний Довод", weapon: "МЕЧ БЕРСЕРКА",
       enemyTypes: [{name:"Мраморный страж",hp:1.75,speed:.58,damage:1.5,shape:"marble"},{name:"Ложный ангел",hp:1.3,speed:1.12,damage:1.25,shape:"falseAngel"}],
-      zones: ["НЕБЕСНЫЕ ВОРОТА","БЕЛАЯ ПЛОЩАДЬ","САД АНГЕЛОВ","АРХИВ АСТЕРИОНА","ОБСЕРВАТОРИЯ","МОСТ ЛЮЦИФЕРА","ВЕЛИКИЙ СОБОР","ТРОН МОРВЫ"],
-      miniBossAt: 5, miniBoss: "АРХАНГЕЛ ЛЮЦИФЕР", unlocks: {6:"berserker"},
+      zones: ["НЕБЕСНЫЕ ВОРОТА","БЕЛАЯ ПЛОЩАДЬ","САД АНГЕЛОВ","АРХИВ АСТЕРИОНА","ОБСЕРВАТОРИЯ","МОСТ ЛЮЦИФЕРА","ВЕЛИКИЙ СОБОР","ЗАЛ РЕЛИКВИЙ","ТРОННЫЙ ЗАЛ МОРВЫ","АРЕНА МОРВЫ"],
+      miniBossAt: 5, miniBoss: "АРХАНГЕЛ ЛЮЦИФЕР", unlocks: {7:"berserker"},
       wall: [207, 192, 163], wallAlt: [153, 178, 205], sky: [111, 151, 186], floor: [140, 126, 111], floorAlt: [169, 151, 113], fog: [184, 185, 177], light: [255, 211, 112], enemyColor: [178, 136, 105], accent: "#e1ca70",
       seed: 6803, enemyCount: 13, bossHp: 1100, damage: 66, range: 1.7,
       intro: ["Белый мрамор сияет над облаками.", "Под его гладкой поверхностью проступают человеческие вены.", "В обсерватории ждёт отец. В револьвере после выстрела остаётся один патрон."],
@@ -117,21 +119,37 @@
   ];
 
   const weapons = {
-    spear: { name:"РЖАВОЕ КОПЬЁ", damage:28, range:1.8, cooldown:.42, tint:[138,125,105] },
-    axe: { name:"ОБЫЧНЫЙ ТОПОР", damage:42, range:1.25, cooldown:.5, tint:[149,136,113] },
-    sword: { name:"ДЛИННЫЙ МЕЧ", damage:48, range:1.55, cooldown:.34, tint:[172,179,181] },
-    crossbow: { name:"АРБАЛЕТ", damage:88, range:8, cooldown:1.05, ammo:"bolt", ammoName:"БОЛТЫ", tint:[121,91,62] },
-    bow: { name:"ЛУК ОХОТНИКА", damage:44, range:7, cooldown:.58, ammo:"arrow", ammoName:"СТРЕЛЫ", tint:[111,136,72] },
-    blades: { name:"ПАРНЫЕ КЛИНКИ", damage:35, range:1.3, cooldown:.2, tint:[157,170,181] },
-    greataxe: { name:"ДВУРУЧНЫЙ ТОПОР", damage:78, range:1.45, cooldown:.82, tint:[165,90,67] },
-    berserker: { name:"МЕЧ БЕРСЕРКА", damage:116, range:1.7, cooldown:1.05, tint:[219,193,127] },
-    revolver: { name:"ПОСЛЕДНИЙ ДОВОД", damage:310, range:10, cooldown:.9, ammo:"bullet", ammoName:"ПАТРОНЫ", tint:[190,160,93] }
+    spear: { name:"РЖАВОЕ КОПЬЁ", damage:6, range:1.9, cooldown:.34, melee:true, tint:[138,125,105] },
+    axe: { name:"ОБЫЧНЫЙ ТОПОР", damage:9, range:1.25, cooldown:.48, melee:true, tint:[149,136,113] },
+    sword: { name:"ДЛИННЫЙ МЕЧ", damage:10, range:1.55, cooldown:.3, melee:true, tint:[172,179,181] },
+    crossbow: { name:"АРБАЛЕТ", damage:28, range:10, cooldown:1.8, reload:1.8, projectileSpeed:9, ammo:"bolt", ammoName:"БОЛТЫ", tint:[121,91,62] },
+    bow: { name:"ЛУК ОХОТНИКА", damage:17, range:9, cooldown:.9, reload:.9, projectileSpeed:7, ammo:"arrow", ammoName:"СТРЕЛЫ", tint:[111,136,72] },
+    blades: { name:"ПАРНЫЕ КЛИНКИ", damage:5, range:1.3, cooldown:.18, melee:true, tint:[157,170,181] },
+    greataxe: { name:"ДВУРУЧНЫЙ ТОПОР", damage:16, range:1.45, cooldown:.72, melee:true, tint:[165,90,67] },
+    berserker: { name:"МЕЧ БЕРСЕРКА", damage:22, range:1.7, cooldown:.9, melee:true, tint:[219,193,127] },
+    revolver: { name:"ПОСЛЕДНИЙ ДОВОД", damage:55, range:12, cooldown:1.1, reload:1.1, projectileSpeed:12, ammo:"bullet", ammoName:"ПАТРОНЫ", tint:[190,160,93] }
   };
+
+  const difficultyPresets={
+    easy:{name:"ЛЁГКАЯ",enemyHp:.7,bossHp:.7,enemyDamage:.7},
+    normal:{name:"НОРМАЛЬНАЯ",enemyHp:1,bossHp:1,enemyDamage:1},
+    hard:{name:"ТЯЖЁЛАЯ",enemyHp:1.6,bossHp:1.75,enemyDamage:1.35},
+    nightmare:{name:"КОШМАР",enemyHp:2.5,bossHp:3,enemyDamage:1.8}
+  };
+  let selectedDifficulty="normal";
 
   const weaponOrder=["spear","axe","sword","crossbow","bow","blades","greataxe","berserker","revolver"];
   const decorDescriptions={
-    carriage:"Разбитая карета отца. На дверце остались следы длинных когтей.",deadTree:"Мёртвое дерево. Кора напоминает высохшую кожу.",candelabra:"Свечи зажжены недавно, но в замке никто не должен жить.",chandelier:"Люстра медленно качается, хотя ветра здесь нет.",banner:"Герб Вальдоры почти полностью пропитан кровью.",barrel:"Старые винные бочки. Из щелей пахнет железом.",bookPile:"Книги раскрыты на описаниях болезни Адриана.",fern:"Листья поворачиваются вслед за Арденом.",mushroom:"Бледные грибы растут из чего-то похожего на кость.",stump:"На срезе дерева видны кольца, похожие на отпечатки пальцев.",roots:"Корни едва заметно пульсируют под землёй.",algae:"Водоросли обвивают затонувшие человеческие волосы.",reeds:"В камыше кто-то дышит в такт Ардену.",sunkenCross:"Крест установлен вверх ногами не водой, а чьими-то руками.",statue:"Каменное лицо кажется знакомым.",column:"В трещине колонны видна влажная человеческая кожа.",rubble:"Под обломками шевелятся каменные пальцы.",timber:"Крепь покрыта царапинами с внутренней стороны.",crystal:"В глубине кристалла застыло человеческое лицо.",ore:"Багровая руда тёплая и пульсирует.",marbleColumn:"Под белым мрамором проступают тонкие вены.",angelStatue:"У статуи настоящие зубы.",fountain:"Вода пахнет кровью, хотя остаётся прозрачной."
+    carriage:"Разбитая карета отца. На дверце остались следы длинных когтей.",deadTree:"Мёртвое дерево. Кора напоминает высохшую кожу.",candelabra:"Свечи зажжены недавно, но в замке никто не должен жить.",chandelier:"Люстра медленно качается, хотя ветра здесь нет.",banner:"Герб Вальдоры почти полностью пропитан кровью.",barrel:"Старые винные бочки. Из щелей пахнет железом.",bookPile:"Книги раскрыты на описаниях болезни Адриана.",gargoyle:"Гаргулья смотрит не на арену, а прямо на Ардена.",brokenSpire:"Молния расколола шпиль изнутри.",fern:"Листья поворачиваются вслед за Арденом.",mushroom:"Бледные грибы растут из чего-то похожего на кость.",stump:"На срезе дерева видны кольца, похожие на отпечатки пальцев.",roots:"Корни едва заметно пульсируют под землёй.",algae:"Водоросли обвивают затонувшие человеческие волосы.",reeds:"В камыше кто-то дышит в такт Ардену.",sunkenCross:"Крест установлен вверх ногами не водой, а чьими-то руками.",statue:"Каменное лицо кажется знакомым.",column:"В трещине колонны видна влажная человеческая кожа.",rubble:"Под обломками шевелятся каменные пальцы.",timber:"Крепь покрыта царапинами с внутренней стороны.",crystal:"В глубине кристалла застыло человеческое лицо.",ore:"Багровая руда тёплая и пульсирует.",marbleColumn:"Под белым мрамором проступают тонкие вены.",angelStatue:"У статуи настоящие зубы.",fountain:"Вода пахнет кровью, хотя остаётся прозрачной."
   };
+  const zoneDecorSets=[
+    [["deadTree","carriage","candelabra"],["chandelier","banner","candelabra"],["chandelier","bookPile","candelabra"],["banner","candelabra","bookPile"],["bookPile","candelabra","rubble"],["barrel","barrel","candelabra"],["banner","candelabra","rubble"],["gargoyle","brokenSpire","gargoyle"]],
+    [["roots","stump","fern"],["reeds","roots","stump"],["totem","skullPile","totem"],["deadTree","roots","fern"],["roots","roots","mushroom"],["ancientTree","roots","mushroom"],["ancientTree","totem","roots"]],
+    [["sunkenCross","reeds","algae"],["reeds","sunkenCross","algae"],["timber","chain","algae"],["chain","timber","reeds"],["statue","sunkenCross","algae"],["pew","sunkenCross","candelabra"],["bell","rubble","sunkenCross"],["sunkenCross","algae","rubble"],["sunkenCross","reeds","algae"]],
+    [["statue","column","rubble"],["statue","statue","column"],["statue","statue","banner"],["statue","column","rubble"],["marketStall","statue","rubble"],["statue","column","pew"],["unfinishedStatue","statue","rubble"],["statue","deadTree","column"],["coffin","statue","rubble"],["throne","column","statue"],["statue","rubble","column"]],
+    [["timber","rubble","ore"],["timber","chain","rubble"],["timber","ore","ore"],["barrel","timber","ore"],["crystal","crystal","ore"],["conveyor","ore","timber"],["timber","ore","chain"],["timber","conveyor","ore"],["heartMass","crystal","ore"],["throne","crystal","ore"],["crystal","heartMass","ore"]],
+    [["marbleColumn","angelStatue","fountain"],["statue","marbleColumn","fountain"],["angelStatue","deadTree","fountain"],["bookPile","marbleColumn","angelStatue"],["telescope","marbleColumn","fountain"],["marbleColumn","angelStatue","rubble"],["pew","angelStatue","marbleColumn"],["relicPedestal","relicPedestal","marbleColumn"],["throne","marbleColumn","angelStatue"],["throne","angelStatue","fountain"]]
+  ];
 
   const storyIntro = {
     kicker: "ПРОЛОГ · АРДЕН",
@@ -168,11 +186,13 @@
   let gameStartedAt = Date.now();
   let ambientAt = 0;
   let audio = null;
+  let ambientNodes=[];
+  let ambientTheme=-99;
   let mouseTurn = 0;
   let finalShotReady = false;
   let lastAutosaveAt = 0;
   let stats = { kills: 0, notes: 0, deaths: 0 };
-  let campaign = { weapons:["spear"], ammo:{bolt:5,arrow:0,bullet:0}, relics:[], journal:[], silver:0, currentWeapon:"spear" };
+  let campaign = { weapons:["spear"], ammo:{bolt:5,arrow:0,bullet:0}, relics:[], journal:[], silver:0, currentWeapon:"spear",difficulty:"normal" };
   const zBuffer = new Float32Array(canvas.width);
 
   function showScreen(id) {
@@ -182,7 +202,7 @@
   function hideScreens() { screens.forEach((screen) => screen.classList.remove("active")); }
 
   function initAudio() {
-    if (audio) return;
+    if (audio) {if(audio.state==="suspended")audio.resume?.();return;}
     try { audio = new (window.AudioContext || window.webkitAudioContext)(); }
     catch { audio = null; }
   }
@@ -198,6 +218,7 @@
       hurt: [36, "sawtooth", .24, .07], note: [220, "sine", .65, .045],
       relic: [110, "sine", 1.4, .06], step: [32, "triangle", .05, .015],
       shot: [42, "sawtooth", .7, .22], death: [46, "sine", 1.4, .08],
+      reload: [96, "square", .28, .028], bow: [165, "triangle", .22, .035], whisper: [72, "sawtooth", 1.1, .018], bell:[116,"sine",2.4,.035],
       ambient: [55 + Math.random() * 28, "sine", 1.8, .012]
     };
     const [freq, type, duration, volume] = table[kind] || table.ambient;
@@ -210,6 +231,19 @@
     gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
     osc.connect(filter).connect(gain).connect(audio.destination);
     osc.start(now); osc.stop(now + duration + .02);
+  }
+
+  function stopAmbientSound(){for(const node of ambientNodes){try{node.stop?.();node.disconnect?.();}catch{}}ambientNodes=[];ambientTheme=-99;}
+
+  function startAmbientSound(theme=chapterIndex){
+    if(!audio)return;if(ambientTheme===theme&&ambientNodes.length)return;stopAmbientSound();ambientTheme=theme;
+    const freqs=[43,34,51,29,24,71,38],filters=[520,330,720,260,180,1100,410],volumes=[.026,.022,.03,.018,.026,.02,.022];
+    const master=audio.createGain();master.gain.value=volumes[theme]??.02;master.connect(audio.destination);
+    const noiseBuffer=audio.createBuffer(1,audio.sampleRate*3,audio.sampleRate),data=noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*(.45+Math.sin(i*.0007)*.15);
+    const noise=audio.createBufferSource();noise.buffer=noiseBuffer;noise.loop=true;const filter=audio.createBiquadFilter();filter.type=theme===2?"bandpass":"lowpass";filter.frequency.value=filters[theme]??400;filter.Q.value=theme===2?5:1.4;noise.connect(filter).connect(master);noise.start();
+    const drone=audio.createOscillator(),droneGain=audio.createGain();drone.type=theme===5?"sine":"sawtooth";drone.frequency.value=freqs[theme]??40;droneGain.gain.value=.28;drone.connect(droneGain).connect(master);drone.start();
+    const upper=audio.createOscillator(),upperGain=audio.createGain();upper.type="sine";upper.frequency.value=(freqs[theme]??40)*1.503;upper.detune.value=-17;upperGain.gain.value=.14;upper.connect(upperGain).connect(master);upper.start();
+    const lfo=audio.createOscillator(),lfoGain=audio.createGain();lfo.frequency.value=theme===4?.19:.08;lfoGain.gain.value=.12;lfo.connect(lfoGain).connect(droneGain.gain);lfo.start();ambientNodes=[noise,filter,drone,droneGain,upper,upperGain,lfo,lfoGain,master];
   }
 
   function rngFactory(seed) {
@@ -242,7 +276,7 @@
       stack.push([cx + dx, cy + dy]);
     }
     // Each region gets a different spatial rhythm: rooms, clearings, plazas or tunnels.
-    const roomCount=[8,2,6,7,2,9,5][style]??5;
+    const roomCount=[8,1,6,7,2,9,5][style]??5;
     for (let room = 0; room < roomCount; room++) {
       const rx = 2 + Math.floor(random() * 15), ry = 2 + Math.floor(random() * 15);
       const span=style===5?4:3;
@@ -251,7 +285,7 @@
       }
     }
     if(style===1){
-      for(let y=2;y<size-2;y++)for(let x=2;x<size-2;x++)if(grid[y][x]&&random()<.27)grid[y][x]=0;
+      for(let y=2;y<size-2;y++)for(let x=2;x<size-2;x++)if(grid[y][x]&&random()<.035)grid[y][x]=0;
     }else if(style===2){
       for(const y of [5,11,15])for(let x=1;x<size-1;x++)grid[y][x]=0;
     }else if(style===3){
@@ -307,14 +341,16 @@
     zoneIndex = Math.max(0, startAtZone|0);
     const c = chapters[chapterIndex];
     player = {
-      x:1.5,y:1.5,a:0,hp:100,stamina:100,herbs:campaign.herbs ?? 2,
-      evidence:0,step:0,hurtCooldown:0,bob:0
+      x:1.5,y:1.5,a:0,hp:100,stamina:100,herbs:campaign.herbs ?? 1,
+      evidence:0,step:0,hurtCooldown:0,bob:0,reloadUntil:0,lastAttackHeavy:false,attackSide:0
     };
     if(!campaign.weapons.length) campaign.weapons=["spear"];
     campaign.ammo=campaign.ammo||{bolt:5,arrow:0,bullet:0};
     campaign.relics=campaign.relics||[];
     campaign.journal=campaign.journal||[];
     campaign.silver=campaign.silver||0;
+    campaign.difficulty=campaign.difficulty||selectedDifficulty;
+    campaign.armor=campaign.armor||0;
     if(!campaign.weapons.includes(campaign.currentWeapon)) campaign.currentWeapon=campaign.weapons[0];
     startZone(zoneIndex, false);
   }
@@ -325,13 +361,14 @@
     const c=chapters[chapterIndex];
     const old=player;
     map = generateMaze(c.seed + zoneIndex*137,chapterIndex);
+    if(chapterIndex===0&&zoneIndex===7)for(let y=1;y<map.length-1;y++)for(let x=1;x<map[y].length-1;x++)map[y][x]=0;
     cells = getReachableCells(map);
     const random = rngFactory(c.seed + zoneIndex*211 + 99);
     const far = cells[cells.length - 1];
     player={
       x:1.5,y:1.5,a:0,hp:preservePlayer?old.hp:old?.hp??100,stamina:100,
       herbs:preservePlayer?old.herbs:old?.herbs??2,evidence:old?.evidence??0,
-      step:0,hurtCooldown:0,bob:0
+      step:0,hurtCooldown:0,bob:0,reloadUntil:0,lastAttackHeavy:false,attackSide:0
     };
     notes=[];
     const noteSlot=zoneIndex===1?0:zoneIndex===c.zones.length-2?1:-1;
@@ -344,7 +381,7 @@
     const candidates = cells.filter((cell) => cell.d > 8 && cell.d < far.d - 3);
     const isFinal=zoneIndex===c.zones.length-1;
     const isMini=zoneIndex===c.miniBossAt;
-    const enemyCount=Math.min(9,3+chapterIndex+Math.floor(zoneIndex/2));
+    const enemyCount=Math.min(18,8+chapterIndex*2+Math.floor(zoneIndex/2));
     for (let i = 0; i < enemyCount; i++) {
       const spot = candidates[Math.floor(random() * candidates.length)] || cells[10 + i];
       entities.push(makeEnemy(spot.x + (random()-.5)*.25, spot.y + (random()-.5)*.25, false,false,i%c.enemyTypes.length));
@@ -354,7 +391,7 @@
     else if(isMini){miniBoss=makeEnemy(far.x,far.y,true,true);boss=miniBoss;entities.push(miniBoss);}
     else zoneExit={type:"exit",x:far.x,y:far.y,picked:false};
     relic = null;
-    for (let i = 0; i < (zoneIndex%3===0?2:1); i++) {
+    for (let i = 0; i < (zoneIndex%6===0?1:0); i++) {
       const spot = candidates[Math.floor(random() * candidates.length)];
       if (spot) entities.push({ type: "herb", x: spot.x, y: spot.y, picked: false });
     }
@@ -362,16 +399,9 @@
       const spot = candidates[Math.floor(random() * candidates.length)];
       if (spot) entities.push({ type: "ghost", x: spot.x, y: spot.y, alpha: .2 + random()*.2 });
     }
-    const decorSets=[
-      zoneIndex===0?["deadTree","carriage","candelabra"]:zoneIndex===2?["chandelier","bookPile","candelabra"]:zoneIndex===5?["barrel","barrel","candelabra"]:["chandelier","candelabra","banner"],
-      ["fern","mushroom","stump","roots"],
-      ["algae","reeds","sunkenCross","algae"],
-      ["statue","column","rubble","statue"],
-      ["timber","crystal","ore","timber"],
-      ["marbleColumn","angelStatue","fountain","marbleColumn"]
-    ];
-    const decorKinds=decorSets[chapterIndex];
-    for(let i=0;i<8;i++){
+    const decorKinds=zoneDecorSets[chapterIndex]?.[zoneIndex]||["rubble","column","candelabra"];
+    const decorCount=chapterIndex===1?18:8;
+    for(let i=0;i<decorCount;i++){
       const spot=candidates[Math.floor(random()*candidates.length)];
       if(spot)entities.push({type:"decor",kind:decorKinds[i%decorKinds.length],x:spot.x+(random()-.5)*.22,y:spot.y+(random()-.5)*.22,picked:false,sway:random()*8});
     }
@@ -405,18 +435,21 @@
     saveGame();
     lastTime = performance.now();
     ambientAt = performance.now() + 2500;
+    startAmbientSound(chapterIndex);
   }
 
   function startHub(nextChapter){
     inHub=true;chapterIndex=Math.max(0,Math.min(chapters.length-1,nextChapter));zoneIndex=-1;
-    campaign.weapons=campaign.weapons||["spear"];campaign.ammo=campaign.ammo||{bolt:5,arrow:0,bullet:0};campaign.relics=campaign.relics||[];campaign.journal=campaign.journal||[];campaign.silver=campaign.silver||0;campaign.currentWeapon=campaign.currentWeapon||"spear";
+    campaign.weapons=campaign.weapons||["spear"];campaign.ammo=campaign.ammo||{bolt:5,arrow:0,bullet:0};campaign.relics=campaign.relics||[];campaign.journal=campaign.journal||[];campaign.silver=campaign.silver||0;campaign.currentWeapon=campaign.currentWeapon||"spear";campaign.armor=campaign.armor||0;
     const c=chapters[chapterIndex];map=generateMaze(9001+chapterIndex*97,6);cells=getReachableCells(map);
-    const far=cells[cells.length-1];player={x:1.5,y:1.5,a:0,hp:100,stamina:100,herbs:campaign.herbs??2,evidence:0,step:0,hurtCooldown:0,bob:0};
+    const far=cells[cells.length-1];player={x:1.5,y:1.5,a:0,hp:100,stamina:100,herbs:campaign.herbs??1,evidence:0,step:0,hurtCooldown:0,bob:0,reloadUntil:0,lastAttackHeavy:false,attackSide:0};
     notes=[];entities=[];boss=null;miniBoss=null;relic=null;zoneExit={type:"exit",x:far.x,y:far.y,picked:false};
+    const merchantSpot=cells[Math.min(cells.length-1,18)];if(merchantSpot)entities.push({type:"merchant",x:merchantSpot.x,y:merchantSpot.y,picked:false,name:"Странник"});
     campaign.relics.forEach((name,i)=>{const spot=cells[Math.floor(cells.length*(.22+Math.min(.55,i*.11)))];if(spot)entities.push({type:"relicDisplay",name,x:spot.x,y:spot.y,picked:false});});
     for(let i=0;i<4;i++){const spot=cells[Math.floor(cells.length*(.18+i*.16))];if(spot)entities.push({type:"ghost",x:spot.x,y:spot.y,alpha:.12});}
     mode="playing";hideScreens();hud.classList.remove("hidden");ui.chapterKicker.textContent="ХАБ · АСТЕРИОН";ui.chapterName.textContent="ПРОКЛЯТАЯ ДОЛИНА";ui.bossUI.classList.add("hidden");updateWeaponHUD();updateObjective();
     showMessage(`Реликвии лордов открывают путь: ${c.name}`,4200);saveGame();lastTime=performance.now();ambientAt=performance.now()+1800;
+    startAmbientSound(6);
   }
 
   function addAmmoPickup(x,y,weaponId){
@@ -427,13 +460,14 @@
 
   function makeEnemy(x, y, isBoss, isMini=false, variant=0) {
     const c = chapters[chapterIndex];
+    const difficulty=difficultyPresets[campaign.difficulty]||difficultyPresets.normal;
     const archetype=c.enemyTypes[variant%c.enemyTypes.length];
-    const baseHp=42 + chapterIndex * 13 + zoneIndex*4;
-    const maxHp = isBoss ? (isMini?Math.round(c.bossHp*.48):c.bossHp) : Math.round(baseHp*archetype.hp);
+    const baseHp=260+chapterIndex*75+Math.max(0,zoneIndex)*18;
+    const maxHp = isBoss ? Math.round(c.bossHp*(isMini?3.2:6.5)*difficulty.bossHp) : Math.round(baseHp*archetype.hp*difficulty.enemyHp);
     return {
       type: "enemy", x, y, boss: isBoss, mini:isMini, variant,isBoss,shape:isBoss?(chapterIndex===5?"angel":"boss"):archetype.shape,name:isBoss?(isMini?c.miniBoss:c.boss):archetype.name, hp: maxHp, maxHp,
       speed: isBoss ? .52 + chapterIndex*.025 : (.62 + chapterIndex*.025)*archetype.speed,
-      damage: isBoss ? 14 + chapterIndex*2 : Math.round((7 + chapterIndex)*archetype.damage),
+      damage: Math.round((isBoss ? 14 + chapterIndex*2 : (7 + chapterIndex)*archetype.damage)*difficulty.enemyDamage),
       alive: true, active:true, attackAt: 0, hitAt: 0, phaseSpawned: false, sway: Math.random()*9
     };
   }
@@ -459,7 +493,7 @@
   function captureRuntime(){
     if(!player||["title","story","dead","ending"].includes(mode))return null;
     return{
-      player:{x:player.x,y:player.y,a:player.a,hp:player.hp,stamina:player.stamina,herbs:player.herbs,evidence:player.evidence,step:0,hurtCooldown:0,bob:player.bob},
+      player:{x:player.x,y:player.y,a:player.a,hp:player.hp,stamina:player.stamina,herbs:player.herbs,evidence:player.evidence,step:0,hurtCooldown:0,bob:player.bob,reloadUntil:0,lastAttackHeavy:false,attackSide:0},
       entities,notes,relic,zoneExit,finalShotReady
     };
   }
@@ -517,7 +551,8 @@
   function updateWeaponHUD(){
     const weapon=weapons[campaign.currentWeapon]||weapons.spear;
     ui.weapon.textContent=weapon.name;
-    const ammo=weapon.ammo?`${weapon.ammoName} ${campaign.ammo[weapon.ammo]||0}`:"БЛИЖНИЙ БОЙ";
+    const reloading=player?.reloadUntil>performance.now()?" · ПЕРЕЗАРЯДКА":"";
+    const ammo=weapon.ammo?`${weapon.ammoName} ${campaign.ammo[weapon.ammo]||0}${reloading}`:"ЛКМ БЫСТРО · ПКМ СИЛЬНО";
     ui.ammo.textContent=`${ammo} · ТРАВЫ ${player?.herbs??0} · СЕРЕБРО ${campaign.silver}`;
   }
 
@@ -526,6 +561,8 @@
     if(!id||!campaign.weapons.includes(id))return;
     campaign.currentWeapon=id;updateWeaponHUD();showMessage(weapons[id].name,1200);saveGame();
   }
+
+  function updateDifficultyButton(){const button=$("#difficulty-button");if(button)button.textContent=`СЛОЖНОСТЬ: ${difficultyPresets[selectedDifficulty].name}`;}
 
   function safeDropPosition(x,y){
     if(canStand(x,y,.16))return{x,y};
@@ -543,9 +580,9 @@
     if (mode !== "playing") return;
     let nearest = null, nearestDist = Infinity;
     for (const item of [...notes, ...entities, ...(zoneExit?[zoneExit]:[]), ...(relic ? [relic] : [])]) {
-      if (item.picked || item.alive === false || item.type==="enemy" || item.type==="ghost" || item.type==="relicDisplay" || item.type==="corpse") continue;
+      if (item.picked || item.alive === false || item.type==="enemy" || item.type==="ghost" || item.type==="relicDisplay" || item.type==="corpse" || item.type==="projectile") continue;
       const d = Math.hypot(item.x - player.x, item.y - player.y);
-      const reach=item.type==="relic"?2.25:item.type==="exit"?1.8:item.type==="decor"?1.65:1.4;
+      const reach=item.type==="relic"?2.25:item.type==="exit"?1.8:item.type==="decor"||item.type==="merchant"?1.65:1.4;
       const score=d+(item.type==="decor" ? .55 : 0);
       if (d < reach&&score < nearestDist) { nearest = item; nearestDist = score; }
     }
@@ -583,6 +620,8 @@
       nearest.picked=true;campaign.silver+=nearest.amount;sound("note",.4);showMessage(`Серебро: +${nearest.amount}`);updateWeaponHUD();
     } else if(nearest.type==="decor"){
       showMessage(decorDescriptions[nearest.kind]||"Это часть окружения. Здесь нечего брать.",3600);
+    } else if(nearest.type==="merchant"){
+      openShop();
     }
     if(mode==="playing")saveGame();
   }
@@ -597,19 +636,27 @@
     saveGame();
   }
 
-  function attack() {
+  function attack(heavy=false) {
     if (mode !== "playing" || attackCooldown > 0) return;
     const weaponId=campaign.currentWeapon;
     const weapon=weapons[weaponId]||weapons.spear;
+    const now=performance.now();
+    if(weapon.reload&&player.reloadUntil>now){showMessage("Оружие ещё перезаряжается.",700);return;}
     if(weapon.ammo){
       const available=campaign.ammo[weapon.ammo]||0;
       if(available<=0){showMessage(`${weapon.ammoName}: нет боеприпасов`);return;}
       if(weaponId==="revolver"&&chapterIndex<5&&available<=1){showMessage("Последний патрон нельзя тратить впустую.");return;}
       campaign.ammo[weapon.ammo]--;
+      player.reloadUntil=now+weapon.reload*1000;
+      attackCooldown=weapon.cooldown;
+      attackAnim=1;player.lastAttackHeavy=false;
+      entities.push({type:"projectile",projectileType:weaponId,weaponId,x:player.x+Math.cos(player.a)*.35,y:player.y+Math.sin(player.a)*.35,a:player.a,speed:weapon.projectileSpeed,damage:weapon.damage,range:weapon.range,traveled:0,picked:false});
+      sound(weaponId==="revolver"?"shot":weaponId==="bow"?"bow":"attack",weaponId==="revolver"?1.2:.9);if(weaponId==="crossbow")setTimeout(()=>sound("reload",.8),220);updateWeaponHUD();saveGame();return;
     }
-    attackCooldown = weapon.cooldown;
+    player.lastAttackHeavy=!!heavy;player.attackSide=player.attackSide?0:1;
+    attackCooldown = weapon.cooldown*(heavy?2.35:1);
     attackAnim = 1;
-    sound(weapon.ammo?"shot":"attack",weaponId==="revolver"?1.2:1);
+    sound("attack",heavy?1.3:.8);
     updateWeaponHUD();
     let target = null, best = weapon.range;
     for (const enemy of entities) {
@@ -625,8 +672,7 @@
       showMessage("Нечто удерживает оружие. Сначала нужно понять это место.");
       return;
     }
-    if(chapterIndex===5&&target===boss&&finalShotReady&&weaponId==="revolver"){lastArgument();return;}
-    let damage = weapon.damage * (.86 + Math.random()*.3);
+    let damage = weapon.damage*(heavy?2.05:1)*(.88+Math.random()*.24);
     target.hp -= damage;
     target.hitAt = performance.now();
     target.active = true;
@@ -636,6 +682,22 @@
       showMessage("Ядро Сердца открыто. Нужен Последний Довод — клавиша 9.",4400);updateObjective();return;
     }
     if (target.hp <= 0) killEnemy(target);
+  }
+
+  function updateProjectile(projectile,dt){
+    if(projectile.picked)return;
+    const step=projectile.speed*dt;projectile.x+=Math.cos(projectile.a)*step;projectile.y+=Math.sin(projectile.a)*step;projectile.traveled+=step;
+    if(isWall(projectile.x,projectile.y)||projectile.traveled>projectile.range){projectile.picked=true;return;}
+    for(const enemy of entities){
+      if(enemy.type!=="enemy"||!enemy.alive)continue;
+      if(Math.hypot(enemy.x-projectile.x,enemy.y-projectile.y)>.42)continue;
+      projectile.picked=true;enemy.hitAt=performance.now();enemy.active=true;
+      if(chapterIndex===5&&enemy===boss&&finalShotReady&&projectile.weaponId==="revolver"){setTimeout(()=>{if(boss?.alive){boss.hp=0;killEnemy(boss);}},260);sound("shot",1.4);return;}
+      enemy.hp-=projectile.damage*(.9+Math.random()*.2);sound("hit");
+      if(chapterIndex===5&&enemy===boss&&enemy.hp/enemy.maxHp<=.1){enemy.hp=Math.max(1,enemy.hp);finalShotReady=true;showMessage("Ядро Сердца открыто. Нужен Последний Довод — клавиша 9.",4400);updateObjective();}
+      else if(enemy.hp<=0)killEnemy(enemy);
+      return;
+    }
   }
 
   function lastArgument() {
@@ -677,6 +739,7 @@
     campaign.silver += [100,75,100,125,150,0][chapterIndex];
     if (chapterIndex === chapters.length - 1) {
       mode = "ending";
+      stopAmbientSound();
       hud.classList.add("hidden");
       clearSave();
       const minutes = Math.max(1, Math.round((Date.now() - gameStartedAt) / 60000));
@@ -691,7 +754,7 @@
 
   function hurt(amount) {
     if (player.hurtCooldown > 0 || mode !== "playing") return;
-    player.hp = Math.max(0, player.hp - amount);
+    player.hp = Math.max(0, player.hp - amount*(1-(campaign.armor||0)));
     player.hurtCooldown = .48;
     ui.damage.classList.add("active");
     setTimeout(() => ui.damage.classList.remove("active"), 80);
@@ -739,6 +802,20 @@
     showScreen("journal-screen");
   }
 
+  function refreshShop(){
+    $("#shop-silver").textContent=`СЕРЕБРО: ${campaign.silver}`;
+    const costs={herb:60,bolts:40,arrows:40,ward:180};
+    document.querySelectorAll("[data-shop]").forEach(button=>{button.disabled=campaign.silver<costs[button.dataset.shop]||(button.dataset.shop==="ward"&&campaign.armor>=.25);});
+  }
+
+  function openShop(){mode="shop";document.exitPointerLock?.();hud.classList.add("hidden");refreshShop();showScreen("shop-screen");}
+  function closeShop(){if(mode!=="shop")return;mode="playing";hideScreens();hud.classList.remove("hidden");lastTime=performance.now();saveGame();}
+  function buyShopItem(id){
+    const costs={herb:60,bolts:40,arrows:40,ward:180},cost=costs[id];if(!cost||campaign.silver<cost)return;campaign.silver-=cost;
+    if(id==="herb")player.herbs++;else if(id==="bolts")campaign.ammo.bolt+=5;else if(id==="arrows")campaign.ammo.arrow+=10;else if(id==="ward")campaign.armor=Math.min(.25,(campaign.armor||0)+.05);
+    sound("relic",.45);refreshShop();updateWeaponHUD();saveGame();
+  }
+
   function update(dt, now) {
     if (mode !== "playing") return;
     const c = chapters[chapterIndex];
@@ -772,6 +849,7 @@
     }
 
     for (const enemy of entities) updateEnemy(enemy, dt, now);
+    for (const projectile of entities.filter(e=>e.type==="projectile")) updateProjectile(projectile,dt);
 
     if(relic&&!relic.picked&&Math.hypot(relic.x-player.x,relic.y-player.y)<.72){collectRelic();return;}
 
@@ -782,8 +860,8 @@
 
     interactionHint = "";
     for (const item of [...notes, ...entities, ...(zoneExit?[zoneExit]:[]), ...(relic ? [relic] : [])]) {
-      if (item.picked || item.alive === false || item.type === "enemy" || item.type === "ghost" || item.type === "relicDisplay" || item.type === "corpse") continue;
-      const hintReach=item.type==="relic"?2.25:item.type==="exit"?1.8:item.type==="decor"?1.65:1.4;
+      if (item.picked || item.alive === false || item.type === "enemy" || item.type === "ghost" || item.type === "relicDisplay" || item.type === "corpse" || item.type === "projectile") continue;
+      const hintReach=item.type==="relic"?2.25:item.type==="exit"?1.8:item.type==="decor"||item.type==="merchant"?1.65:1.4;
       if (Math.hypot(item.x-player.x,item.y-player.y) < hintReach) {
         interactionHint = item.type === "note" ? "E — прочитать" :
           item.type === "herb" ? "E — взять траву" :
@@ -792,6 +870,7 @@
           item.type === "ammo" ? "E — взять боеприпасы" :
           item.type === "silver" ? "E — взять серебро" :
           item.type === "relic" ? `E — взять реликвию: ${chapters[chapterIndex].relic}` :
+          item.type === "merchant" ? "E — поговорить с торговцем" :
           item.type === "decor" ? "E — осмотреть" : "E — взаимодействовать";
         break;
       }
@@ -802,7 +881,7 @@
     }
 
     if (now > ambientAt) {
-      sound("ambient");
+      sound(chapterIndex===2?"bell":Math.random()<.45?"whisper":"ambient");
       ambientAt = now + 3500 + Math.random()*7000;
       if (Math.random() < .32 && player.evidence < notes.length) showMessage("В тумане кто-то шепчет имя Ардена.", 1800);
     }
@@ -945,6 +1024,17 @@
     renderWeapon(c, now);
     ctx.fillStyle = `rgba(${c.fog[0]},${c.fog[1]},${c.fog[2]},.045)`;
     ctx.fillRect(0,0,w,h);
+    renderMinimap(c);
+  }
+
+  function renderMinimap(c){
+    if(!player||!map.length)return;const mw=minimapCanvas.width,mh=minimapCanvas.height,rows=map.length,cols=map[0].length,scale=Math.min(mw/cols,mh/rows),ox=(mw-cols*scale)/2,oy=(mh-rows*scale)/2;
+    minimapCtx.clearRect(0,0,mw,mh);minimapCtx.fillStyle="rgba(4,5,5,.92)";minimapCtx.fillRect(0,0,mw,mh);
+    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){minimapCtx.fillStyle=map[y][x]?(chapterIndex===1?"#243b28":"#4b4743"):"#171817";minimapCtx.fillRect(ox+x*scale,oy+y*scale,Math.ceil(scale),Math.ceil(scale));}
+    const loot=[...notes,...entities,...(zoneExit?[zoneExit]:[]),...(relic?[relic]:[])];
+    for(const item of loot){if(item.picked||item.alive===false)continue;let col=null,size=2.2;if(item.type==="enemy"){col=item.boss?"#ff4255":"#c52d3b";size=item.boss?3.7:2.3;}else if(item.type==="herb")col="#74b75a";else if(["weapon","ammo","silver","note","relic"].includes(item.type)){col=item.type==="relic"?"#fff09a":"#d8ae59";size=item.type==="relic"?3.6:2.2;}else if(item.type==="exit")col="#67b8d6";else if(item.type==="merchant")col="#b88cff";if(!col)continue;minimapCtx.fillStyle=col;minimapCtx.beginPath();minimapCtx.arc(ox+item.x*scale,oy+item.y*scale,size,0,Math.PI*2);minimapCtx.fill();}
+    const px=ox+player.x*scale,py=oy+player.y*scale;minimapCtx.save();minimapCtx.translate(px,py);minimapCtx.rotate(player.a);minimapCtx.fillStyle="#f1eadb";minimapCtx.beginPath();minimapCtx.moveTo(5,0);minimapCtx.lineTo(-4,-3.2);minimapCtx.lineTo(-4,3.2);minimapCtx.closePath();minimapCtx.fill();minimapCtx.restore();
+    minimapCtx.strokeStyle="rgba(225,215,190,.32)";minimapCtx.strokeRect(.5,.5,mw-1,mh-1);
   }
 
   function drawEnvironmentDetails(c,w,h,horizon,vanishX,now){
@@ -958,6 +1048,7 @@
         ctx.strokeStyle="rgba(119,84,62,.25)";ctx.lineWidth=3;for(let i=-6;i<=6;i++){ctx.beginPath();ctx.moveTo(vanishX+i*2,horizon);ctx.lineTo(w*.5+i*w*.12,0);ctx.stroke();}
       }else{
         const moon=ctx.createRadialGradient(w*.72,h*.17,0,w*.72,h*.17,h*.14);moon.addColorStop(0,"rgba(205,215,221,.62)");moon.addColorStop(.2,"rgba(157,174,190,.26)");moon.addColorStop(1,"rgba(100,120,150,0)");ctx.fillStyle=moon;ctx.fillRect(w*.5,0,w*.44,h*.38);
+        if(zoneIndex===7&&Math.sin(now*.0027)> .94){ctx.fillStyle="rgba(215,225,255,.2)";ctx.fillRect(0,0,w,h);ctx.strokeStyle="rgba(235,241,255,.88)";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w*.22,0);ctx.lineTo(w*.28,h*.12);ctx.lineTo(w*.24,h*.2);ctx.lineTo(w*.34,h*.34);ctx.stroke();}
       }
     }else if(chapterIndex===1){
       const sunX=w*.7-Math.sin(player.a)*w*.14,sunY=h*.14;
@@ -1058,6 +1149,8 @@
       else if (["exit","weapon","ammo","silver"].includes(e.type)) drawWorldPickup(e,sx,horizon,base,d,now,c);
       else if(e.type==="decor")drawDecoration(e,sx,horizon,base,d,now,c);
       else if(e.type==="corpse")drawCorpse(e,sx,horizon,base,d,now,c);
+      else if(e.type==="projectile")drawProjectile(e,sx,horizon,base,d,c);
+      else if(e.type==="merchant")drawMerchant(e,sx,horizon,base,d,now,c);
     }
   }
 
@@ -1259,8 +1352,40 @@
       ctx.fillStyle="#4a3b2b";ctx.fillRect(sx-s*.42,ground-s*.65,s*.84,s*.65);ctx.fillStyle="#80684b";ctx.beginPath();ctx.ellipse(sx,ground-s*.65,s*.43,s*.13,0,0,Math.PI*2);ctx.fill();
     }else if(k==="roots"){
       ctx.strokeStyle="#3e3326";ctx.lineWidth=Math.max(2,s*.12);for(let i=-3;i<=3;i++){ctx.beginPath();ctx.moveTo(sx,ground-s*.6);ctx.quadraticCurveTo(sx+i*s*.24,ground-s*.25,sx+i*s*.5,ground);ctx.stroke();}
+    }else if(k==="totem"){
+      ctx.fillStyle="#49392c";ctx.fillRect(sx-s*.16,ground-s*1.7,s*.32,s*1.7);for(let i=0;i<4;i++){ctx.fillStyle=i%2?"#7f4935":"#8d7551";ctx.beginPath();ctx.arc(sx,ground-s*(.35+i*.38),s*(.18+i*.025),0,Math.PI*2);ctx.fill();eyeDot(sx-s*.06,ground-s*(.37+i*.38),s*.022,"#c7a96e");eyeDot(sx+s*.06,ground-s*(.37+i*.38),s*.022,"#c7a96e");}
+    }else if(k==="skullPile"){
+      for(let i=0;i<7;i++){const x=sx+(i%4-1.5)*s*.22,y=ground-s*(.15+Math.floor(i/4)*.22);ctx.fillStyle="#b7aa8f";ctx.beginPath();ctx.arc(x,y,s*.15,0,Math.PI*2);ctx.fill();ctx.fillStyle="#27211d";ctx.fillRect(x-s*.07,y-s*.04,s*.04,s*.04);ctx.fillRect(x+s*.03,y-s*.04,s*.04,s*.04);}
+    }else if(k==="ancientTree"){
+      ctx.strokeStyle="#352a22";ctx.lineWidth=Math.max(3,s*.4);ctx.beginPath();ctx.moveTo(sx,ground);ctx.lineTo(sx,ground-s*2.2);ctx.stroke();for(let i=-4;i<=4;i++)limb(sx,ground-s*(1.2+Math.abs(i)*.12),sx+i*s*.42,ground-s*(1.7+(i%2)*.25),s*.12,"#403126");
     }else if(k==="sunkenCross"){
       ctx.strokeStyle="#596968";ctx.lineWidth=Math.max(2,s*.14);ctx.beginPath();ctx.moveTo(sx,ground);ctx.lineTo(sx-s*.12,ground-s*1.35);ctx.moveTo(sx-s*.46,ground-s*.92);ctx.lineTo(sx+s*.3,ground-s*1.0);ctx.stroke();
+    }else if(k==="gargoyle"){
+      ctx.fillStyle="#55565a";ctx.beginPath();ctx.ellipse(sx,ground-s*.55,s*.38,s*.48,0,0,Math.PI*2);ctx.fill();poly([[sx-s*.22,ground-s*.72],[sx-s*.78,ground-s*1.18],[sx-s*.48,ground-s*.43]],"#4b4c50");poly([[sx+s*.22,ground-s*.72],[sx+s*.78,ground-s*1.18],[sx+s*.48,ground-s*.43]],"#4b4c50");eyeDot(sx-s*.12,ground-s*.66,s*.035,"#d4d6d8");eyeDot(sx+s*.12,ground-s*.66,s*.035,"#d4d6d8");
+    }else if(k==="brokenSpire"){
+      ctx.fillStyle="#3f4145";ctx.beginPath();ctx.moveTo(sx-s*.35,ground);ctx.lineTo(sx-s*.16,ground-s*1.65);ctx.lineTo(sx+s*.06,ground-s*1.2);ctx.lineTo(sx+s*.34,ground);ctx.fill();ctx.strokeStyle="#8b8d92";ctx.beginPath();ctx.moveTo(sx-s*.08,ground-s*.25);ctx.lineTo(sx+s*.15,ground-s*1.0);ctx.stroke();
+    }else if(k==="chain"){
+      ctx.strokeStyle="#55545a";ctx.lineWidth=Math.max(1,s*.08);for(let i=0;i<7;i++){ctx.beginPath();ctx.ellipse(sx,ground-s*(.2+i*.22),s*.11,s*.17,i%2?0:Math.PI/2,0,Math.PI*2);ctx.stroke();}
+    }else if(k==="pew"){
+      ctx.fillStyle="#493529";ctx.fillRect(sx-s*.75,ground-s*.55,s*1.5,s*.18);ctx.fillRect(sx-s*.72,ground-s*.9,s*1.44,s*.12);ctx.fillRect(sx-s*.62,ground-s*.5,s*.12,s*.5);ctx.fillRect(sx+s*.5,ground-s*.5,s*.12,s*.5);
+    }else if(k==="bell"){
+      ctx.fillStyle="#6f6654";ctx.beginPath();ctx.moveTo(sx-s*.42,ground-s*.3);ctx.quadraticCurveTo(sx-s*.25,ground-s*1.35,sx,ground-s*1.45);ctx.quadraticCurveTo(sx+s*.25,ground-s*1.35,sx+s*.42,ground-s*.3);ctx.fill();ctx.fillStyle="#2d2924";ctx.beginPath();ctx.arc(sx,ground-s*.25,s*.11,0,Math.PI*2);ctx.fill();
+    }else if(k==="marketStall"){
+      ctx.fillStyle="#4b382c";ctx.fillRect(sx-s*.72,ground-s*.75,s*1.44,s*.12);ctx.fillRect(sx-s*.64,ground-s*.72,s*.1,s*.72);ctx.fillRect(sx+s*.54,ground-s*.72,s*.1,s*.72);poly([[sx-s*.82,ground-s*.78],[sx-s*.62,ground-s*1.18],[sx+s*.62,ground-s*1.18],[sx+s*.82,ground-s*.78]],"#62504a");
+    }else if(k==="unfinishedStatue"){
+      ctx.fillStyle="#777872";ctx.fillRect(sx-s*.28,ground-s*1.2,s*.56,s*1.2);ctx.fillStyle="#4b4d4b";ctx.fillRect(sx,ground-s*1.2,s*.28,s*1.2);ctx.strokeStyle="#9b978b";ctx.beginPath();ctx.moveTo(sx-s*.28,ground-s*.5);ctx.lineTo(sx+s*.28,ground-s*.65);ctx.stroke();
+    }else if(k==="coffin"){
+      poly([[sx-s*.32,ground],[sx-s*.48,ground-s*.9],[sx,ground-s*1.35],[sx+s*.48,ground-s*.9],[sx+s*.32,ground]],"#595954");ctx.strokeStyle="#959086";ctx.strokeRect(sx-s*.04,ground-s*1.05,s*.08,s*.65);ctx.strokeRect(sx-s*.22,ground-s*.8,s*.44,s*.08);
+    }else if(k==="conveyor"){
+      ctx.fillStyle="#3e3d40";ctx.fillRect(sx-s*.85,ground-s*.55,s*1.7,s*.24);ctx.strokeStyle="#777175";for(let i=-3;i<=3;i++){ctx.beginPath();ctx.arc(sx+i*s*.24,ground-s*.43,s*.1,0,Math.PI*2);ctx.stroke();}ctx.fillStyle="#8b3945";ctx.fillRect(sx-s*.75,ground-s*.73,s*1.5,s*.12);
+    }else if(k==="heartMass"){
+      ctx.fillStyle="#79283a";ctx.beginPath();ctx.arc(sx-s*.18,ground-s*.78,s*.38,0,Math.PI*2);ctx.arc(sx+s*.18,ground-s*.78,s*.38,0,Math.PI*2);ctx.lineTo(sx,ground-s*.08);ctx.fill();ctx.strokeStyle="#b64d5d";for(let i=-2;i<=2;i++){ctx.beginPath();ctx.moveTo(sx,ground-s*.5);ctx.lineTo(sx+i*s*.35,ground-s*(1.15+Math.abs(i)*.1));ctx.stroke();}
+    }else if(k==="telescope"){
+      ctx.strokeStyle="#b8aa86";ctx.lineWidth=Math.max(2,s*.2);ctx.beginPath();ctx.moveTo(sx-s*.55,ground-s*1.35);ctx.lineTo(sx+s*.45,ground-s*.72);ctx.stroke();ctx.fillStyle="#6c6c70";ctx.beginPath();ctx.arc(sx-s*.55,ground-s*1.35,s*.22,0,Math.PI*2);ctx.fill();for(const side of [-1,1])limb(sx,ground-s*.65,sx+side*s*.4,ground,s*.07,"#72644f");
+    }else if(k==="relicPedestal"){
+      ctx.fillStyle="#d0c7b2";ctx.fillRect(sx-s*.35,ground-s*.72,s*.7,s*.72);ctx.fillRect(sx-s*.48,ground-s*.82,s*.96,s*.13);const g=ctx.createRadialGradient(sx,ground-s*1.05,0,sx,ground-s*1.05,s*.6);g.addColorStop(0,"rgba(244,211,112,.5)");g.addColorStop(1,"rgba(244,211,112,0)");ctx.fillStyle=g;ctx.fillRect(sx-s*.7,ground-s*1.75,s*1.4,s*1.4);
+    }else if(k==="throne"){
+      ctx.fillStyle=chapterIndex===5?"#d8caa3":"#555057";ctx.fillRect(sx-s*.52,ground-s*1.45,s*1.04,s*1.45);ctx.fillRect(sx-s*.78,ground-s*.65,s*.28,s*.65);ctx.fillRect(sx+s*.5,ground-s*.65,s*.28,s*.65);ctx.fillStyle="#9f8247";ctx.fillRect(sx-s*.46,ground-s*1.35,s*.92,s*.08);
     }else if(k==="statue"||k==="angelStatue"){
       ctx.fillStyle=k==="angelStatue"?"#c8c1ad":"#777873";ctx.fillRect(sx-s*.5,ground-s*.15,s, s*.15);ctx.beginPath();ctx.moveTo(sx-s*.28,ground-s*.25);ctx.lineTo(sx-s*.18,ground-s*1.45);ctx.lineTo(sx+s*.18,ground-s*1.45);ctx.lineTo(sx+s*.35,ground-s*.25);ctx.fill();ctx.beginPath();ctx.arc(sx,ground-s*1.62,s*.22,0,Math.PI*2);ctx.fill();
       if(k==="angelStatue"){ctx.strokeStyle="#d8d0b9";ctx.lineWidth=Math.max(1,s*.08);ctx.beginPath();ctx.moveTo(sx,ground-s*1.2);ctx.lineTo(sx-s*.75,ground-s*1.55);ctx.moveTo(sx,ground-s*1.2);ctx.lineTo(sx+s*.75,ground-s*1.55);ctx.stroke();}
@@ -1291,21 +1416,33 @@
     ctx.restore();
   }
 
+  function drawProjectile(e,sx,horizon,base,d,c){
+    const size=Math.max(2,base*.035),y=horizon+base*.12;ctx.save();ctx.globalAlpha=Math.max(.4,1-d/14);ctx.translate(sx,y);ctx.rotate(e.a-player.a);
+    ctx.strokeStyle=e.projectileType==="revolver"?"#ffd27b":e.projectileType==="bow"?"#b9d38b":"#d9c7a1";ctx.lineWidth=Math.max(1,size*.22);ctx.beginPath();ctx.moveTo(-size*2.8,0);ctx.lineTo(size*2.8,0);ctx.stroke();ctx.fillStyle="#d7d0c0";ctx.beginPath();ctx.moveTo(size*3.4,0);ctx.lineTo(size*2.2,-size*.5);ctx.lineTo(size*2.2,size*.5);ctx.fill();ctx.restore();
+  }
+
+  function drawMerchant(e,sx,horizon,base,d,now,c){
+    const h=base*1.05,w=h*.44,y=horizon+base*.43-h;ctx.save();ctx.globalAlpha=Math.max(.35,1-d/14);ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();ctx.ellipse(sx,horizon+base*.43,w*.7,base*.07,0,0,Math.PI*2);ctx.fill();
+    const robe=ctx.createLinearGradient(sx-w/2,0,sx+w/2,0);robe.addColorStop(0,"#241c2d");robe.addColorStop(.5,"#5b4368");robe.addColorStop(1,"#201927");ctx.fillStyle=robe;ctx.beginPath();ctx.moveTo(sx-w*.18,y+h*.16);ctx.lineTo(sx-w*.58,y+h*.95);ctx.lineTo(sx+w*.58,y+h*.95);ctx.lineTo(sx+w*.18,y+h*.16);ctx.fill();ctx.fillStyle="#171319";ctx.beginPath();ctx.arc(sx,y+h*.16,w*.3,0,Math.PI*2);ctx.fill();eyeDot(sx-w*.09,y+h*.16,w*.028,"#c6a7db");eyeDot(sx+w*.09,y+h*.16,w*.028,"#c6a7db");ctx.strokeStyle="#b7a06c";ctx.lineWidth=Math.max(1,w*.035);ctx.beginPath();ctx.moveTo(sx+w*.4,y+h*.25);ctx.lineTo(sx+w*.65,y+h*.95);ctx.stroke();ctx.fillStyle="#b88cff";ctx.beginPath();ctx.arc(sx+w*.4,y+h*.24,w*.07+Math.sin(now*.004)*w*.01,0,Math.PI*2);ctx.fill();ctx.restore();
+  }
+
   function renderWeapon(c,now) {
     const w=canvas.width,h=canvas.height;
     const id=campaign.currentWeapon;
     const weapon=weapons[id]||weapons.spear;
     const bobX=Math.cos(player.bob*.5)*5, bobY=Math.abs(Math.sin(player.bob))*4;
-    const swing=attackAnim>0?Math.sin((1-Math.min(1,attackAnim))*Math.PI)*58:0;
-    ctx.save();ctx.translate(w*.63+bobX-swing,h+18+bobY-swing*.35);ctx.rotate(-.55+swing*.012);
+    const swingArc=attackAnim>0?Math.sin((1-Math.min(1,attackAnim))*Math.PI):0;
+    const swing=swingArc*(player.lastAttackHeavy?96:54),side=player.attackSide?1:-1;
+    ctx.save();ctx.translate(w*.63+bobX+(player.lastAttackHeavy?0:side*swing*.75),h+18+bobY-swing*(player.lastAttackHeavy ? .7 : .28));ctx.rotate(-.55+(player.lastAttackHeavy?swing*.014:side*swing*.01));
     const metal=ctx.createLinearGradient(-12,0,12,0);metal.addColorStop(0,color(weapon.tint,.32));metal.addColorStop(.48,color(weapon.tint,1.18));metal.addColorStop(1,color(weapon.tint,.42));
     if(id==="bow"){
-      ctx.strokeStyle=color(weapon.tint,.9);ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(0,-145);ctx.quadraticCurveTo(58,-72,0,8);ctx.stroke();
-      ctx.strokeStyle="rgba(230,220,190,.7)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,-145);ctx.lineTo(0,8);ctx.stroke();
+      const pull=attackAnim>0?swingArc*26:0;ctx.strokeStyle=color(weapon.tint,.9);ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(0,-145);ctx.quadraticCurveTo(58,-72,0,8);ctx.stroke();
+      ctx.strokeStyle="rgba(230,220,190,.82)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,-145);ctx.lineTo(-pull,-70);ctx.lineTo(0,8);ctx.stroke();
       ctx.fillStyle="#9c8b66";ctx.fillRect(-2,-138,4,150);
     }else if(id==="crossbow"){
+      const reloadProgress=Math.max(0,Math.min(1,(player.reloadUntil-performance.now())/(weapon.reload*1000)));
       ctx.fillStyle="#5c402c";ctx.fillRect(-9,-120,18,160);ctx.fillStyle=color(weapon.tint,.85);ctx.fillRect(-61,-104,122,8);
-      ctx.strokeStyle="rgba(230,220,190,.72)";ctx.beginPath();ctx.moveTo(-61,-104);ctx.lineTo(0,-77);ctx.lineTo(61,-104);ctx.stroke();
+      ctx.strokeStyle="rgba(230,220,190,.78)";ctx.beginPath();ctx.moveTo(-61,-104);ctx.lineTo(0,-77+reloadProgress*38);ctx.lineTo(61,-104);ctx.stroke();
       ctx.fillStyle="#b8a57c";ctx.fillRect(-2,-145,4,90);
     }else if(id==="revolver"){
       ctx.rotate(.48);ctx.fillStyle=metal;ctx.fillRect(-11,-78,22,80);ctx.fillRect(-20,-13,40,28);ctx.beginPath();ctx.arc(0,-16,16,0,Math.PI*2);ctx.fill();
@@ -1340,7 +1477,7 @@
     if (/^Digit[1-9]$/.test(event.code) && !event.repeat) selectWeapon(Number(event.code.slice(5))-1);
     if (event.code==="Tab" && !event.repeat) mode==="playing"?openJournal():mode==="journal"&&resumeGame();
     if (event.code==="Escape" && !event.repeat) {
-      if (mode==="playing") pauseGame(); else if (mode==="paused"||mode==="journal") resumeGame();
+      if (mode==="playing") pauseGame(); else if (mode==="paused"||mode==="journal") resumeGame(); else if(mode==="shop")closeShop();
     }
   });
   addEventListener("keyup", (event) => { keys[event.code]=false; });
@@ -1353,6 +1490,7 @@
     initAudio();
     if (document.pointerLockElement!==canvas) canvas.requestPointerLock?.();
     if (event.button===0) attack();
+    if (event.button===2) attack(true);
   });
   canvas.addEventListener("contextmenu", e=>e.preventDefault());
   canvas.addEventListener("wheel",event=>{
@@ -1363,27 +1501,31 @@
   },{passive:false});
 
   $("#new-game").addEventListener("click",()=>{
-    initAudio();clearSave();stats={kills:0,notes:0,deaths:0};campaign={weapons:["spear"],ammo:{bolt:5,arrow:0,bullet:0},relics:[],journal:[],silver:0,currentWeapon:"spear",herbs:2};pendingZone=0;gameStartedAt=Date.now();showStory(-1);
+    initAudio();clearSave();stats={kills:0,notes:0,deaths:0};campaign={weapons:["spear"],ammo:{bolt:5,arrow:0,bullet:0},relics:[],journal:[],silver:0,currentWeapon:"spear",herbs:1,difficulty:selectedDifficulty};pendingZone=0;gameStartedAt=Date.now();showStory(-1);
   });
   $("#continue-game").addEventListener("click",()=>{
-    initAudio();const save=loadSave();if(save){stats=save.stats||stats;campaign=save.campaign||campaign;pendingZone=save.zone||0;gameStartedAt=save.started||Date.now();if(save.hub)startHub(save.chapter||0);else startChapter(save.chapter||0,save.zone||0);restoreRuntime(save.runtime);}
+    initAudio();const save=loadSave();if(save){stats=save.stats||stats;campaign=save.campaign||campaign;selectedDifficulty=campaign.difficulty||"normal";updateDifficultyButton();pendingZone=save.zone||0;gameStartedAt=save.started||Date.now();if(save.hub)startHub(save.chapter||0);else startChapter(save.chapter||0,save.zone||0);restoreRuntime(save.runtime);}
   });
+  $("#difficulty-button").addEventListener("click",()=>{const order=["easy","normal","hard","nightmare"],index=order.indexOf(selectedDifficulty);selectedDifficulty=order[(index+1)%order.length];updateDifficultyButton();});
   $("#story-continue").addEventListener("click",()=>startChapter(pendingChapter,pendingZone));
   $("#controls-button").addEventListener("click",()=>showScreen("controls-screen"));
   $("#controls-back").addEventListener("click",()=>showScreen("title-screen"));
   $("#resume-game").addEventListener("click",resumeGame);
   $("#journal-close").addEventListener("click",resumeGame);
+  $("#shop-close").addEventListener("click",closeShop);
+  document.querySelectorAll("[data-shop]").forEach(button=>button.addEventListener("click",()=>buyShopItem(button.dataset.shop)));
   $("#restart-chapter").addEventListener("click",()=>startChapter(chapterIndex,0));
   $("#retry").addEventListener("click",()=>startChapter(chapterIndex,zoneIndex));
   $("#return-title").addEventListener("click",returnToTitle);
   $("#death-title").addEventListener("click",returnToTitle);
   $("#ending-title").addEventListener("click",returnToTitle);
 
-  function returnToTitle(){saveGame();mode="title";hud.classList.add("hidden");document.exitPointerLock?.();showScreen("title-screen");}
+  function returnToTitle(){saveGame();stopAmbientSound();mode="title";hud.classList.add("hidden");document.exitPointerLock?.();showScreen("title-screen");}
 
   addEventListener("pagehide",()=>saveGame());
   addEventListener("beforeunload",()=>saveGame());
   document.addEventListener?.("visibilitychange",()=>{if(document.visibilityState==="hidden")saveGame();});
+  updateDifficultyButton();
   if(loadSave()) $("#continue-game").classList.remove("hidden");
   requestAnimationFrame(loop);
 })();

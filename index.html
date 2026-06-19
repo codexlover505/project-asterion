@@ -21,13 +21,19 @@
 
     <section id="hud" class="hidden" aria-live="polite">
       <div class="hud-top">
-        <div class="chapter-block">
-          <span id="chapter-kicker">ГЛАВА I</span>
-          <strong id="chapter-name">ЗАМОК ЧЁРНОЙ РОЗЫ</strong>
+        <div class="hud-left">
+          <div class="chapter-block">
+            <span id="chapter-kicker">ГЛАВА I</span>
+            <strong id="chapter-name">ЗАМОК ЧЁРНОЙ РОЗЫ</strong>
+          </div>
+          <div class="objective-block">
+            <span>ЦЕЛЬ</span>
+            <strong id="objective">Найдите следы отца</strong>
+          </div>
         </div>
-        <div class="objective-block">
-          <span>ЦЕЛЬ</span>
-          <strong id="objective">Найдите следы отца</strong>
+        <div class="minimap-block">
+          <span>КАРТА</span>
+          <canvas id="minimap" width="168" height="168" aria-label="Миникарта"></canvas>
         </div>
       </div>
       <div id="message" class="message"></div>
@@ -55,6 +61,7 @@
       <nav class="menu">
         <button id="new-game" class="primary">НОВАЯ ИГРА</button>
         <button id="continue-game" class="hidden">ПРОДОЛЖИТЬ</button>
+        <button id="difficulty-button">СЛОЖНОСТЬ: НОРМАЛЬНАЯ</button>
         <button id="controls-button">УПРАВЛЕНИЕ</button>
       </nav>
       <p class="footer-note">SURVIVAL HORROR · АВТОСОХРАНЕНИЕ · DARK FANTASY</p>
@@ -73,7 +80,8 @@
       <div class="controls-grid">
         <span><kbd>W A S D</kbd> движение</span>
         <span><kbd>МЫШЬ / ← →</kbd> обзор</span>
-        <span><kbd>ЛКМ / ПРОБЕЛ</kbd> атака</span>
+        <span><kbd>ЛКМ</kbd> быстрый удар / выстрел</span>
+        <span><kbd>ПКМ</kbd> тяжёлый удар</span>
         <span><kbd>SHIFT</kbd> бег</span>
         <span><kbd>E</kbd> взаимодействие</span>
         <span><kbd>H</kbd> лечебная трава</span>
@@ -98,6 +106,19 @@
       <h2 id="journal-title"></h2>
       <div id="journal-content"></div>
       <button id="journal-close" class="primary">ЗАКРЫТЬ</button>
+    </section>
+
+    <section id="shop-screen" class="screen shop-screen">
+      <p class="eyebrow">ТОРГОВЕЦ ПРОКЛЯТОЙ ДОЛИНЫ</p>
+      <h2>ЛАВКА СТРАННИКА</h2>
+      <p id="shop-silver" class="shop-silver">СЕРЕБРО: 0</p>
+      <div class="shop-grid">
+        <button data-shop="herb"><strong>ЛЕЧЕБНАЯ ТРАВА</strong><span>60 серебра</span></button>
+        <button data-shop="bolts"><strong>5 АРБАЛЕТНЫХ БОЛТОВ</strong><span>40 серебра</span></button>
+        <button data-shop="arrows"><strong>10 СТРЕЛ</strong><span>40 серебра</span></button>
+        <button data-shop="ward"><strong>БРОНЗОВЫЙ ОБЕРЕГ</strong><span>180 серебра · защита +5%</span></button>
+      </div>
+      <button id="shop-close" class="primary">УЙТИ</button>
     </section>
 
     <section id="death-screen" class="screen compact">
